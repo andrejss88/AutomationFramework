@@ -16,7 +16,7 @@ public class ConvertUtil {
     public static List<Double> convertToDoubleList(List<WebElement> list) {
         return list.stream()
                 .map(WebElement::getText)
-                .map(s -> s.replaceAll("[^0-9]", ""))
+                .map(s -> s.replaceAll("[^\\d.]", ""))
                 .map(Double::parseDouble)
                 .collect(Collectors.toList());
     }

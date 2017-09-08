@@ -14,7 +14,7 @@ public class CSVProvider {
     public static String[][] getCSVData(String fileName){
         List<Object[]> rows = new ArrayList<>();
         String userDir = System.getProperty("user.dir");
-        String pathToFile = userDir + "\\src\\test\\java\\com\\github\\testdata\\" + fileName;
+        String pathToFile = userDir + "\\src\\test\\resources\\testdata\\" + fileName;
         try {
             CSVReader reader = new CSVReader(new FileReader(pathToFile));
             String[] nextLine;
