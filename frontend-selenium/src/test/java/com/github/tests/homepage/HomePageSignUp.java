@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class HomePageSignUp extends AbstractHomePageTest {
 
     @Test
-    public void signUp_fails() {
+    public void signUpFails() {
 
         home.act().enterUserName("user")
                 .enterEmail("some@email.com")
