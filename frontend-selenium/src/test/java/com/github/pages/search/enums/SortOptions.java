@@ -1,4 +1,4 @@
-package com.github.pages.search;
+package com.github.pages.search.enums;
 
 public enum SortOptions {
     MOST_STARS("Most stars"),

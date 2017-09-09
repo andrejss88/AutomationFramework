@@ -8,14 +8,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 public class Header  {
+
     private WebDriver driver ;
-    /**
-     * Common header elements found on various pages
-     * Keeping them in a separate class prevents declaring them
-     * multiple times in many Page Objects that share the header
-     *
-     * This keeps things DRY
-     */
 
     @FindBy(how = How.LINK_TEXT, using = "Sign in")
     private WebElement signInBtn;

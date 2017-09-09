@@ -1,45 +1,39 @@
 package com.github.pages.search;
 
+import com.github.pages.search.enums.Language;
+import com.github.pages.search.enums.SortOptions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import java.util.List;
-import java.util.function.Predicate;
+public class SearchPageActionsController extends AbstractSearchPageController{
 
-import static com.github.utils.ConvertUtil.convertToStringList;
-
-public class SearchPageActions {
-
-    private static final String FILTER_ITEM = "//a[contains(@class, 'filter-item')";
     private static final int WAIT_SECONDS = 5;
-    private WebDriver driver;
 
-    public SearchPageActions(WebDriver driver) {
+    public SearchPageActionsController(WebDriver driver) {
         this.driver = driver;
     }
 
-    public SearchPageActions(){}
+    public SearchPageActionsController(){}
 
-    public SearchPageActions enterSearchWord(String keyWord) {
+    public SearchPageActionsController enterSearchWord(String keyWord) {
         getSearchInput().sendKeys(keyWord);
         return this;
     }
 
-    public SearchPageActions enterSearchWord(Language language) {
+    public SearchPageActionsController enterSearchWord(Language language) {
         getSearchInput().sendKeys(language.toString());
         return this;
     }
 
-    public SearchPageActions clickSearch() {
+    public SearchPageActionsController clickSearch() {
         getSearchBtn().click();
         return this;
     }
 
-    public SearchPageActions selectLanguage(Language language) {
+    public SearchPageActionsController selectLanguage(Language language) {
         String languageItem = FILTER_ITEM +
                 " and text()[normalize-space() = '" + language + "']]";
 
@@ -55,31 +49,8 @@ public class SearchPageActions {
 
     }
 
-    public SearchPageActions checkLanguageLabels(Predicate<String> predicate) {
 
-        List<String> labels = getLanguageLabels();
-
-        for (String label : labels) {
-            if (!predicate.test(label)) {
-                Assert.fail("Filtering by language label " + label + " failed");
-            }
-        }
-        return this;
-    }
-
-
-    private List<String> getLanguageLabels() {
-        String xpath = "//div[contains(@class, 'repo-list-item')]//div[2]";
-
-        List<WebElement> list = driver.findElements(By.xpath(xpath));
-
-        return convertToStringList(list);
-    }
-
-
-
-
-    public SearchPageActions sortBy(SortOptions option){
+    public SearchPageActionsController sortBy(SortOptions option){
 
         getSortByBtn().click();
 

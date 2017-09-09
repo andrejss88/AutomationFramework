@@ -8,13 +8,6 @@ import org.openqa.selenium.support.How;
 
 public class Footer extends AbstractGitHubPage {
 
-    /**
-     * Implement footer elements (links) the same way CommonHeaderElements is.
-     * Footer and Header classes could be a single class
-     * but in big projects it's best to keep classes as small as possible
-     *
-     */
-
     // Element locators using alternative methods
 
     @FindBy(how = How.LINK_TEXT, using = "About")

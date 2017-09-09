@@ -1,4 +1,6 @@
-package com.github.pages.searchpage;
+package com.github.pages.search;
+
+import com.github.pages.search.enums.Language;
 
 import java.util.function.Predicate;
 

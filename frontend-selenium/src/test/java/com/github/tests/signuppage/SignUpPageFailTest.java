@@ -15,6 +15,7 @@ public class SignUpPageFailTest extends AbstractSignUpPageTest {
         common = new CommonActions(driver);
     }
 
+    // With hard-coded values
     @Test(dataProvider = "getUserDetails", dataProviderClass = UserDetailsProvider.class)
     public void signUpStep1_withDataProvider(String userName, String email, String password) {
 
@@ -22,10 +23,13 @@ public class SignUpPageFailTest extends AbstractSignUpPageTest {
                 .fillInNewUserDetails(userName, email, password);
 
         signUpPage.act()
-                .clickCreateAccount()
-                .checkAccountCreationFailed();
+                .clickCreateAccount();
+
+        signUpPage.verify()
+                .accountCreationFailed();
     }
 
+    // With values fetched from a CSV
     @Test(dataProvider = "loginData", dataProviderClass = UserDetailsProvider.class)
     public void signUpStep1_withCSVDataParser(String userName, String email, String password) {
 
@@ -33,8 +37,10 @@ public class SignUpPageFailTest extends AbstractSignUpPageTest {
                 .fillInNewUserDetails(userName, email, password);
 
         signUpPage.act()
-                .clickCreateAccount()
-                .checkAccountCreationFailed();
+                .clickCreateAccount();
+
+        signUpPage.verify()
+                .accountCreationFailed();
     }
 
 }

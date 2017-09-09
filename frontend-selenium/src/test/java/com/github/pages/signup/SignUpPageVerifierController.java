@@ -7,36 +7,30 @@ import org.testng.Assert;
 
 import static com.github.utils.ElementUtil.checkElementIsDisplayed;
 
-public class SignUpPageActions {
+public class SignUpPageVerifierController extends AbstractSignUpPageController {
 
-    private WebDriver driver;
 
-    public SignUpPageActions(){}
+    public SignUpPageVerifierController(){}
 
-    public SignUpPageActions(WebDriver driver){
+    public SignUpPageVerifierController(WebDriver driver){
         this.driver = driver;
     }
 
-    private WebElement createAccountBtn;
 
-    private WebElement getCreateAccountBtn(){
-        return driver.findElement(By.id("signup_button"));
-    }
-
-    public SignUpPageActions checkAccountCreationSuccessful() {
+    public SignUpPageVerifierController accountCreationSuccessful() {
         Assert.assertFalse(checkElementIsDisplayed(getCreateAccountBtn()), "'Create Account' button should not be visible if account creation was successful");
         return this;
     }
 
-    public SignUpPageActions checkAccountCreationFailed() {
+    public SignUpPageVerifierController accountCreationFailed() {
         Assert.assertTrue(checkElementIsDisplayed(getCreateAccountBtn()), "'Create Account' button should remain visible if account creation failed");
+        Assert.assertTrue(checkElementIsDisplayed(getAccountCreationError()), "Could not find Flash Error message ");
         return this;
     }
 
 
-    public SignUpPageActions clickCreateAccount() {
-        getCreateAccountBtn().click();
-        return this;
+    private WebElement getAccountCreationError(){
+        return driver.findElement(By.xpath("//div[contains(@class, 'flash-error')  and contains(text(), 'problems creating')]"));
     }
 
 

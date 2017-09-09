@@ -1,4 +1,4 @@
-package com.github.pages.search;
+package com.github.pages.search.enums;
 
 /**
  * Represents languages shown on the

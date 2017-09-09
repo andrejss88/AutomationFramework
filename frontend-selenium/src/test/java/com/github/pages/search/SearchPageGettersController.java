@@ -1,5 +1,6 @@
 package com.github.pages.search;
 
+import com.github.pages.search.enums.Language;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,13 +10,10 @@ import java.util.List;
 import static com.github.utils.ConvertUtil.convertToDoubleList;
 import static com.github.utils.ConvertUtil.stringToNumber;
 
-public class SearchPageGetters {
+public class SearchPageGettersController extends AbstractSearchPageController {
 
-    private static final String FILTER_ITEM = "//a[contains(@class, 'filter-item')";
-
-    private WebDriver driver;
-
-    public SearchPageGetters(WebDriver driver) {
+    public SearchPageGettersController(){}
+    public SearchPageGettersController(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -27,7 +25,6 @@ public class SearchPageGetters {
 
         return stringToNumber(repoCount);
     }
-
 
     public int totalRepoCount(){
         String totalRepoXpath = "//h3[contains(text(),'repository results')]";

@@ -1,5 +1,6 @@
 package com.github.pages.search;
 
+import com.github.pages.search.enums.Language;
 import com.google.common.collect.Ordering;
 
 import java.util.List;

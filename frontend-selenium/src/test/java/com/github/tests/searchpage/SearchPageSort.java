@@ -1,13 +1,11 @@
 package com.github.tests.searchpage;
 
 import com.github.tests.abstractpagetest.AbstractSearchPageTest;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.github.pages.search.SearchPredicates.isSorted;
-import static com.github.pages.search.SortOptions.MOST_STARS;
+import static com.github.pages.search.enums.SortOptions.MOST_STARS;
 
 public class SearchPageSort extends AbstractSearchPageTest {
 
@@ -22,7 +20,7 @@ public class SearchPageSort extends AbstractSearchPageTest {
 
         List<Double> ratingList = search.get().starRatings();
 
-        Assert.assertTrue(isSorted(ratingList));
-
+        search.verify()
+                .listIsSorted(ratingList);
     }
 }

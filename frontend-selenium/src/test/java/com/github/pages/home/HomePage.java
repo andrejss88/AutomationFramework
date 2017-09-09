@@ -9,7 +9,7 @@ public class HomePage extends AbstractGitHubPage {
 
     private static final String PAGE_URL = BASE_URL ;
 
-    private HomePageActions homePageActions;
+    private HomePageActionsController homePageActions;
 
     private HomePage(){}
 
@@ -23,7 +23,7 @@ public class HomePage extends AbstractGitHubPage {
         driver.get(pageUrl);
         PageFactory.initElements(driver, this);
         Assert.assertTrue("Could not assert Home Page opened", this.isPageOpened());
-        homePageActions = new HomePageActions(driver);
+        homePageActions = new HomePageActionsController(driver);
     }
 
     /**
@@ -46,7 +46,7 @@ public class HomePage extends AbstractGitHubPage {
         return new HomePage(driver, PAGE_URL);
     }
 
-    public HomePageActions act(){
+    public HomePageActionsController act(){
         return homePageActions;
     }
 

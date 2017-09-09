@@ -8,21 +8,29 @@ public class SearchPage extends AbstractGitHubPage {
 
     private static final String PAGE_URL = BASE_URL + "search";
 
-    private SearchPageActions searchPageActions;
+    private SearchPageActionsController searchPageActions;
 
-    private SearchPageGetters searchPageGetters;
+    private SearchPageGettersController searchPageGetters;
+
+    private SearchPageVerifierController searchPageVerifierController;
 
     private SearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        initControllers();
     }
 
     private SearchPage(WebDriver driver, String pageUrl){
         this(driver);
         driver.get(pageUrl);
         PageFactory.initElements(driver, this);
-        searchPageActions = new SearchPageActions(driver);
-        searchPageGetters = new SearchPageGetters(driver);
+        initControllers();
+    }
+
+    private void initControllers() {
+        searchPageActions = new SearchPageActionsController(driver);
+        searchPageGetters = new SearchPageGettersController(driver);
+        searchPageVerifierController = new SearchPageVerifierController(driver);
     }
 
     public static SearchPage initPageElements(WebDriver driver){
@@ -33,12 +41,18 @@ public class SearchPage extends AbstractGitHubPage {
         return new SearchPage(driver, PAGE_URL);
     }
 
-    public SearchPageActions act(){
+    public SearchPageActionsController act(){
         return searchPageActions;
     }
 
-    public SearchPageGetters get() {
+    public SearchPageGettersController get() {
         return searchPageGetters;
     }
+
+    public SearchPageVerifierController verify() {
+        return searchPageVerifierController;
+    }
+
+
 
 }

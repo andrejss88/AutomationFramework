@@ -1,6 +1,6 @@
 package com.github.tests.searchpage;
 
-import com.github.pages.search.Language;
+import com.github.pages.search.enums.Language;
 import com.github.tests.abstractpagetest.AbstractSearchPageTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -22,8 +22,10 @@ public class SearchPageFilters extends AbstractSearchPageTest {
         search.act()
                 .enterSearchWord(java)
                 .clickSearch()
-                .selectLanguage(java)
-                .checkLanguageLabels(is(java));
+                .selectLanguage(java);
+
+        search.verify()
+                .languageLabels(is(java));
     }
 
     @Test
@@ -35,8 +37,10 @@ public class SearchPageFilters extends AbstractSearchPageTest {
         search.act()
                 .enterSearchWord(html)
                 .clickSearch()
-                .selectLanguage(html)
-                .checkLanguageLabels(isNot(python));
+                .selectLanguage(html);
+
+        search.verify()
+                .languageLabels(isNot(python));
     }
 
     @Test
@@ -50,7 +54,8 @@ public class SearchPageFilters extends AbstractSearchPageTest {
 
         int repoCount = search.get().repoCountFor(js);
 
-        search.act().selectLanguage(js);
+        search.act()
+                .selectLanguage(js);
 
         int totalCount = search.get().totalRepoCount();
 
