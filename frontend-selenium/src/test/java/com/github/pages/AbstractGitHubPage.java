@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class AbstractGitHubPage {
 
-    protected final static String BASE_URL = PropertiesFactory.loadBaseUrl();
+    protected final static String BASE_URL = new PropertiesFactory().loadBaseUrl();
     private final static String TITLE = "GitHub";
 
     /**
