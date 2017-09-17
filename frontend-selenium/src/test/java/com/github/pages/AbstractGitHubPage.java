@@ -1,10 +1,11 @@
 package com.github.pages;
 
+import com.github.setup.PropertiesFactory;
 import org.openqa.selenium.WebDriver;
 
 public abstract class AbstractGitHubPage {
 
-    protected final static String BASE_URL = "https://github.com/";
+    protected final static String BASE_URL = PropertiesFactory.loadBaseUrl();
     private final static String TITLE = "GitHub";
 
     /**
