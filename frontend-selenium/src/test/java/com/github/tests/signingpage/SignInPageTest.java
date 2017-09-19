@@ -2,6 +2,7 @@ package com.github.tests.signingpage;
 
 import com.github.dataproviders.UserDetailsProvider;
 import com.github.tests.abstractpagetest.AbstractSignInPageTest;
+import enums.Priority;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -28,7 +29,7 @@ public class SignInPageTest extends AbstractSignInPageTest {
      * so these tests are more for the purpose of code demonstration
      */
 
-    @Test
+    @Test(priority = Priority.HIGH)
     public void checkSignBtnEnabled() {
         Assert.assertEquals(signInPage.getSignInBtn().isEnabled(), true, "Sign In button is disabled but should be enabled");
     }
@@ -38,7 +39,7 @@ public class SignInPageTest extends AbstractSignInPageTest {
      * Pro: more concise
      * Con: each additional abstraction = fail message is more vague
      */
-    @Test
+    @Test(priority = Priority.HIGH)
     public void checkSignInBtnEnabled_alternativeWay() {
         checkElementEnabled(signInPage.getSignInBtn(), true);
     }

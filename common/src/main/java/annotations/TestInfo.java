@@ -9,17 +9,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE) //on class level
 public @interface TestInfo {
 
-    enum Priority {
-        LOW, MEDIUM, HIGH
-    }
-
     enum TestType {
         FUNCTIONAL, LOAD, SMOKE
     }
 
     TestType testType();
-
-    Priority priority() default Priority.MEDIUM;
 
     String[] tags() default "";
 

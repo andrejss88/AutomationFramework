@@ -33,6 +33,14 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <!--Fixes: https://stackoverflow.com/questions/17777821/maven-dependency-conflict-org-w3c-dom-elementtraversal-->
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+
+
 
     </dependencies>
 
