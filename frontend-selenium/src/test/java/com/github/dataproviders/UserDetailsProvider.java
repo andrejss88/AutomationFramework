@@ -19,6 +19,11 @@ public class UserDetailsProvider {
         return getCSVData("loginDetails.csv");
     }
 
+    @DataProvider
+    public static Object[][] signUpData() {
+        return getCSVData("signUpData.csv");
+    }
+
 
 
 }

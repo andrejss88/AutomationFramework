@@ -1,5 +1,6 @@
 package com.github.tests.signingpage;
 
+import com.github.dataproviders.UserDetailsProvider;
 import com.github.tests.abstractpagetest.AbstractSignInPageTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -8,6 +9,19 @@ import static com.github.utils.ElementUtil.checkElementEnabled;
 
 
 public class SignInPageTest extends AbstractSignInPageTest {
+
+    @Test(dataProvider = "signUpData", dataProviderClass = UserDetailsProvider.class)
+    public void checkSignInFails(String name, String password){
+
+        signInPage.act()
+                .fillInUserDetails(name, password)
+                .clickSignIn();
+
+
+        signInPage.verify()
+                .signUpFailedMessageShows()
+                .userRemainsOnSamePage();
+    }
 
     /**
      * Sign in button is actually always enabled,
