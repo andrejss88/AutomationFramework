@@ -16,6 +16,7 @@ public class HomePage extends AbstractGitHubPage {
     private HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        initControllers();
     }
 
     private HomePage(WebDriver driver, String pageUrl) {
@@ -23,6 +24,9 @@ public class HomePage extends AbstractGitHubPage {
         driver.get(pageUrl);
         PageFactory.initElements(driver, this);
         Assert.assertTrue("Could not assert Home Page opened", this.isPageOpened());
+    }
+
+    private void initControllers() {
         homePageActions = new HomePageActionsController(driver);
     }
 

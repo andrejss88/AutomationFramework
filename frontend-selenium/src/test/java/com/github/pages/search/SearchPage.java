@@ -24,7 +24,6 @@ public class SearchPage extends AbstractGitHubPage {
         this(driver);
         driver.get(pageUrl);
         PageFactory.initElements(driver, this);
-        initControllers();
     }
 
     private void initControllers() {

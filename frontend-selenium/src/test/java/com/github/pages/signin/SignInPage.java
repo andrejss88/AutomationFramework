@@ -33,7 +33,6 @@ public class SignInPage extends AbstractGitHubPage {
         driver.get(pageUrl);
         PageFactory.initElements(driver, this);
         Assert.assertTrue("Could not assert Sign In Page was opened", this.isPageOpened());
-        initControllers();
     }
 
     public static SignInPage initPageElements(WebDriver driver){

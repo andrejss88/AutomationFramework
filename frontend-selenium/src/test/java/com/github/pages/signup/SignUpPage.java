@@ -15,7 +15,6 @@ public class SignUpPage extends AbstractGitHubPage {
     private SignUpPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        initControllers();
     }
 
     private SignUpPage(WebDriver driver, String pageUrl) {
