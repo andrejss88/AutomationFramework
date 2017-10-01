@@ -1,16 +1,19 @@
+package com.flaky;
+
 import annotations.Flaky;
 import annotations.TestInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
 /**
- * Class showing various TestNG perks and their functionality
+ * Not Selenium: just shows how annotations and TestNG listeners work
+ * These could then be applied to actual Selenium tests
  */
 @TestInfo(
-        priority =  TestInfo.Priority.HIGH,
         testType = TestInfo.TestType.FUNCTIONAL
 )
-public class ExperimentalZone  {
+public class FlakyTests {
 
     @Flaky
     @Test
@@ -20,12 +23,12 @@ public class ExperimentalZone  {
 
 
 
-    static int count = 0;
+    private static int count = 0;
     @Test
-    public void smartRetryerTest() {
+    public void smartRetrierTest() {
         if(count <= 1){
             count++;
-           Assert.assertEquals(2+2,5,"Addition Problem! 2+2 must be 4!\n");
+           Assert.assertEquals(1+1,3,"should be 2!");
         }
         System.out.println("I ran a normal test");
     }
