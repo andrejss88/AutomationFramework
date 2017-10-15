@@ -4,7 +4,12 @@ import com.github.pages.signup.SignUpPage;
 import com.github.tests.abstractpagetest.AbstractHomePageTest;
 import org.testng.annotations.Test;
 
+import javax.annotation.Resource;
+
 public class HomePageSignUp extends AbstractHomePageTest {
+
+    @Resource
+    private SignUpPage signUp;
 
     @Test
     public void signUpFails() {
@@ -15,9 +20,7 @@ public class HomePageSignUp extends AbstractHomePageTest {
                 .enterPassword("password")
                 .clickSignUp();
 
-        SignUpPage signUpPage = SignUpPage.initPageElements(driver);
-
-        signUpPage.verify()
+        signUp.verify()
                 .accountCreationFailed();
 
     }

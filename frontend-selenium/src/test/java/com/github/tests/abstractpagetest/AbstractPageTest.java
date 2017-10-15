@@ -1,22 +1,31 @@
 package com.github.tests.abstractpagetest;
 
-import com.github.setup.SeleniumDriver;
+import com.github.config.SpringConfig;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
-public abstract class AbstractPageTest {
+import javax.annotation.Resource;
 
+@ContextConfiguration(classes = SpringConfig.class)
+public abstract class AbstractPageTest extends AbstractTestNGSpringContextTests {
+
+    @Resource(name = "driver")
     protected WebDriver driver;
 
-    @BeforeMethod
+    @BeforeSuite
     public void globalSetUp() {
-        driver = SeleniumDriver.getDriver();
+        // Driver initialized along with Spring container in SpringConfig.class
     }
 
-    @AfterMethod
+    @AfterSuite
     public void globalTearDown() {
         driver.close();
     }
+
+
+
 
 }

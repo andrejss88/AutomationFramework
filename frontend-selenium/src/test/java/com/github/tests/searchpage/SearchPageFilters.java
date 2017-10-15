@@ -5,8 +5,8 @@ import com.github.tests.abstractpagetest.AbstractSearchPageTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.github.pages.search.SearchPredicates.is;
-import static com.github.pages.search.SearchPredicates.isNot;
+import static com.github.pages.search.predicates.SearchPredicates.is;
+import static com.github.pages.search.predicates.SearchPredicates.isNot;
 
 /**
  * Tests here use a different design method: a simple Fluent Interface,
