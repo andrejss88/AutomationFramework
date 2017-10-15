@@ -29,14 +29,14 @@ public class SearchPageVerifierController extends AbstractSearchPageController {
 
         for (String label : labels) {
             if (!predicate.test(label)) {
-                Assert.fail("Filtering by language label " + label + " failed");
+                Assert.fail("Filtering by language label '" + label + "' failed");
             }
         }
         return this;
     }
 
     private List<String> getLanguageLabels() {
-        String xpath = "//div[contains(@class, 'repo-list-item')]//div[2]";
+        String xpath = "//div[contains(@class, 'repo-list-item')]/div[contains(@class, 'd-table-cell')]";
 
         List<WebElement> list = driver.findElements(By.xpath(xpath));
 
