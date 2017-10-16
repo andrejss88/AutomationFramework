@@ -14,7 +14,7 @@ import static com.github.pages.search.predicates.SearchPredicates.isNot;
  */
 public class SearchPageFilters extends AbstractSearchPageTest {
 
-    @Test
+    @Test(testName = "Language filter", description = "Filtering by Java shows Java only repos")
     public void checkLanguageFilterWorks() {
 
         Language java = Language.JAVA;

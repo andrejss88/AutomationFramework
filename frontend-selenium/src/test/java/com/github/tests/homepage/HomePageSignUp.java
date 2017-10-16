@@ -11,17 +11,33 @@ public class HomePageSignUp extends AbstractHomePageTest {
     @Resource
     private SignUpPage signUp;
 
-    @Test
-    public void signUpFails() {
-
+    private void attemptSignIn(){
         home.act()
                 .enterUserName("user")
                 .enterEmail("some@email.com")
                 .enterPassword("password")
                 .clickSignUp();
 
+    }
+
+    @Test(testName = "Sign Up Fails", description = "Invalid credentials")
+    public void signUpFails() {
+
+        attemptSignIn();
+
         signUp.verify()
                 .accountCreationFailed();
+
+    }
+
+    @Test // No TestNG name/ desc:
+          // method name will be used in report, desc will be ""
+    public void signUpFailsNegative() {
+
+        attemptSignIn();
+
+        signUp.verify()
+                .accountCreationSuccessful();
 
     }
 }
