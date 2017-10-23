@@ -9,7 +9,10 @@ import java.util.List;
 
 public class SpringUtils {
 
-    public static List<Object> getInstantiatedSigletons(ApplicationContext ctx) {
+    /**
+     * Util method to debug Spring Contenxt - if something doesn't get autowired and loaded into the container correctly
+     */
+    public static List<Object> getInstantiatedSingletons(ApplicationContext ctx) {
         List<Object> singletons = new ArrayList<>();
 
         String[] all = ctx.getBeanDefinitionNames();
