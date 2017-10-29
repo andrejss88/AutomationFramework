@@ -1,6 +1,6 @@
-package apache.functional;
+package apache.tests.functional;
 
-import apache.AbstractTest;
+import apache.tests.AbstractTest;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.annotations.Test;

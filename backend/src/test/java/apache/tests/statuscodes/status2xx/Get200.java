@@ -1,6 +1,6 @@
-package apache.statuscodes.status2xx;
+package apache.tests.statuscodes.status2xx;
 
-import apache.statuscodes.AbstractStatusCodeTest;
+import apache.tests.statuscodes.AbstractStatusCodeTest;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.Test;

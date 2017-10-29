@@ -1,4 +1,4 @@
-package apache;
+package apache.tests;
 
 import apache.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;

@@ -1,4 +1,4 @@
-package apache.statuscodes.sanity;
+package apache.tests.statuscodes.sanity;
 
 import apache.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
