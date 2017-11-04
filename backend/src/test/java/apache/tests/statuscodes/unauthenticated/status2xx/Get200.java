@@ -1,4 +1,4 @@
-package apache.tests.statuscodes.status2xx;
+package apache.tests.statuscodes.unauthenticated.status2xx;
 
 import apache.tests.statuscodes.AbstractStatusCodeTest;
 import org.apache.http.client.methods.HttpGet;

@@ -1,4 +1,4 @@
-package apache.tests.statuscodes.status3xx;
+package apache.tests.statuscodes.unauthenticated.status3xx;
 
 import apache.tests.statuscodes.AbstractStatusCodeTest;
 

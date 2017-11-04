@@ -3,7 +3,7 @@ package apache.tests.payload;
 import apache.tests.AbstractTest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.GitHubUser;
+import com.github.entities.GitHubUser;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

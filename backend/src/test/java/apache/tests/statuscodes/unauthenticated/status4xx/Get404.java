@@ -1,7 +1,7 @@
-package apache.tests.statuscodes.status4xx;
+package apache.tests.statuscodes.unauthenticated.status4xx;
 
 import apache.tests.statuscodes.AbstractStatusCodeTest;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,18 +9,17 @@ import java.io.IOException;
 
 import static apache.Constants.BASE_API_URL;
 
-public class Post404 extends AbstractStatusCodeTest {
+public class Get404 extends AbstractStatusCodeTest {
 
     private static final int EXPECTED_STATUS = 404;
 
-    // TODO: change - posting to baseUrl makes no sense
     @Test
-    public void nonAuthenticatedPostReturns404() throws IOException {
-        HttpPost httpPost = new HttpPost(BASE_API_URL);
-        response = instance.execute(httpPost);
+    public void getTeamsWhenUnauthorized() throws IOException {
+        HttpGet httpget = new HttpGet(BASE_API_URL  + "teams");
+        response = instance.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
-    }
 
+    }
 }

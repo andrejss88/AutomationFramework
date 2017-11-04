@@ -1,7 +1,6 @@
-package apache.tests.statuscodes.status4xx;
+package apache.tests.statuscodes.unauthenticated.status4xx;
 
 import apache.tests.statuscodes.AbstractStatusCodeTest;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
