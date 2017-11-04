@@ -1,12 +1,26 @@
 package com.github.utils;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.Header;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class UtilMethods {
+
+    public static <T> T retrieveResourceFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
+
+        String jsonFromResponse = EntityUtils.toString(response.getEntity());
+
+        return new ObjectMapper()
+                  .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                  .readValue(jsonFromResponse, clazz);
+    }
 
     /**
      * Find a header from the entire response entity
