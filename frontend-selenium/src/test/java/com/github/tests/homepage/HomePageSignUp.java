@@ -30,6 +30,7 @@ public class HomePageSignUp extends AbstractHomePageTest {
 
     }
 
+    // This test fails (on purpose to showcase a failed test in a report)
     @Test // No TestNG name/ desc:
           // method name will be used in report, desc will be ""
     public void signUpFailsNegative() {

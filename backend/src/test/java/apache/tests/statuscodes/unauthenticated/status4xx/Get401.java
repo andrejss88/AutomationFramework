@@ -26,7 +26,7 @@ public class Get401 extends AbstractStatusCodeTest {
     @Test(dataProvider = "endPointsRequiringAuthorization")
     public void getUserWhenUnauthorized(String endpoint) throws IOException{
         HttpGet httpget = new HttpGet(BASE_API_URL  + endpoint);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);

@@ -16,7 +16,7 @@ public class Get200 extends AbstractStatusCodeTest {
     @Test
     public void baseUrlRequestReturns200() throws IOException {
         HttpGet httpget = new HttpGet(BASE_API_URL);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
@@ -26,7 +26,7 @@ public class Get200 extends AbstractStatusCodeTest {
     public void searchRequestReturns200() throws IOException {
         HttpGet httpget = new HttpGet(BASE_API_URL + "search/repositories?q=java");
 
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);

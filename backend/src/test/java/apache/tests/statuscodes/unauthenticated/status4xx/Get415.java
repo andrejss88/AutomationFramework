@@ -20,7 +20,7 @@ public class Get415 extends AbstractTest {
         httpget.setHeader("Accept", "application/xml");
         httpget.setHeader("Content-type", "application/xml");
 
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);

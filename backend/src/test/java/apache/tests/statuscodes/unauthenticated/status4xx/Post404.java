@@ -17,7 +17,7 @@ public class Post404 extends AbstractStatusCodeTest {
     @Test
     public void nonAuthenticatedPostReturns404() throws IOException {
         HttpPost httpPost = new HttpPost(BASE_API_URL);
-        response = instance.execute(httpPost);
+        response = client.execute(httpPost);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);

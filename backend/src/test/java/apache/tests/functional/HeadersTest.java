@@ -17,7 +17,7 @@ import static apache.Constants.BASE_API_URL;
 import static com.github.utils.UtilMethods.getValueForHeader;
 import static com.github.utils.UtilMethods.getValueForHeaderJava8Way;
 
-public class Headers {
+public class HeadersTest {
 
     private CloseableHttpResponse response;
 

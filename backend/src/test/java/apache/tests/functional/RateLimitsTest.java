@@ -31,7 +31,7 @@ public class RateLimitsTest extends AbstractTest {
     public void xRateLimitRemainingRemainsConstant() throws IOException{
 
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
 
         String actualHeaderValue = getValueForHeaderJava8Way(response, LIMIT);
 
@@ -46,12 +46,12 @@ public class RateLimitsTest extends AbstractTest {
 
         // Send 1st GET
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        CloseableHttpResponse response = instance.execute(httpget);
+        CloseableHttpResponse response = client.execute(httpget);
         String hitsRemaining = getValueForHeaderJava8Way(response, LIMIT_REMAINING);
 
         // Send 2nd GET
         HttpGet httpget2 = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        CloseableHttpResponse response2 = instance.execute(httpget2);
+        CloseableHttpResponse response2 = client.execute(httpget2);
         String hitsRemaining2 = getValueForHeaderJava8Way(response2, LIMIT_REMAINING);
 
         Assert.assertEquals(hitsRemaining, hitsRemaining2);
@@ -62,12 +62,12 @@ public class RateLimitsTest extends AbstractTest {
 
         // Send 1st GET
         HttpGet httpget = new HttpGet(BASE_API_URL  + SEARCH);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         String hitsRemaining = getValueForHeaderJava8Way(response, LIMIT_REMAINING);
 
         // Send 2nd GET
         HttpGet httpget2 = new HttpGet(BASE_API_URL  + SEARCH);
-        response = instance.execute(httpget2);
+        response = client.execute(httpget2);
         String hitsRemaining2 = getValueForHeaderJava8Way(response, LIMIT_REMAINING);
 
         int diff = parseInt(hitsRemaining) - parseInt(hitsRemaining2); // should be at least 1
@@ -79,7 +79,7 @@ public class RateLimitsTest extends AbstractTest {
     public void correctRateLimitsAreSet() throws IOException{
 
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
 
         RateLimit resource = retrieveResourceFromResponse(response, RateLimit.class);
 

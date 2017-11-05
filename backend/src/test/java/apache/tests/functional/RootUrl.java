@@ -17,7 +17,7 @@ public class RootUrl extends AbstractTest {
     @Test
     public void rootUrlReturnsEndPoints() throws IOException {
         HttpGet httpget = new HttpGet(BASE_API_URL);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         HttpEntity entity = response.getEntity();
 
         System.out.println(entity);

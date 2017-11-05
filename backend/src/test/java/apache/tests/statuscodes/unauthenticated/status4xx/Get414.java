@@ -20,7 +20,7 @@ public class Get414 extends AbstractStatusCodeTest{
         String uri = RandomStringUtils.randomAlphabetic(5000);
 
         HttpGet httpget = new HttpGet(BASE_API_URL  + "users/" + uri);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
 
         int actualStatus = response.getStatusLine().getStatusCode();
 

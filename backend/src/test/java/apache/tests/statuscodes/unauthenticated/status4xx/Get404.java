@@ -16,7 +16,7 @@ public class Get404 extends AbstractStatusCodeTest {
     @Test
     public void getTeamsWhenUnauthorized() throws IOException {
         HttpGet httpget = new HttpGet(BASE_API_URL  + "teams");
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);

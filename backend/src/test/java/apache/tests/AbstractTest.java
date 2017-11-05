@@ -11,13 +11,13 @@ import java.io.IOException;
 
 public class AbstractTest {
 
-    protected CloseableHttpClient instance;
+    protected CloseableHttpClient client;
 
     protected CloseableHttpResponse response;
 
     @BeforeMethod
     public void before() {
-        instance = HttpClientBuilder.create().build();
+        client = HttpClientBuilder.create().build();
     }
 
     @AfterMethod

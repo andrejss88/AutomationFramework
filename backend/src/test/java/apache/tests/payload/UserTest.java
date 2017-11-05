@@ -19,12 +19,11 @@ public class UserTest extends AbstractTest{
         String validUser = "andrejss88";
         String userId = "11834443";
         HttpGet httpget = new HttpGet(BASE_API_URL  + "users/"+ validUser);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
 
-        GitHubUser resource = retrieveResourceFromResponse(
-                response, GitHubUser.class);
+        GitHubUser resource = retrieveResourceFromResponse(response, GitHubUser.class);
+
         Assert.assertEquals(validUser, resource.getLogin());
-
         Assert.assertEquals(userId, resource.getId());
     }
 
