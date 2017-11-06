@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 
 import java.io.IOException;
 
-import static com.github.Factories.ClientFactory.getDefaultClient;
+import static com.github.factories.ClientFactory.getDefaultClient;
 
 public class AbstractTest {
 

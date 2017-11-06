@@ -1,7 +1,7 @@
 package apache.tests.unauthenticated.security.authentication;
 
 import apache.tests.AbstractTest;
-import com.github.Factories.ClientFactory;
+import com.github.factories.ClientFactory;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -18,6 +18,8 @@ import static apache.Constants.BASE_API_URL;
 import static java.util.Base64.getEncoder;
 
 public class BasicAuthenticationTest extends AbstractTest {
+
+    // https://stackoverflow.com/questions/3283234/http-basic-authentication-in-java-using-httpclient
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_UNAUTHORIZED; // 401
     private static final String SECURED_URL = BASE_API_URL + "authorizations";

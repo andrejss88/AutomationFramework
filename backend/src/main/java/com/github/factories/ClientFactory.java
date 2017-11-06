@@ -1,4 +1,4 @@
-package com.github.Factories;
+package com.github.factories;
 
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
