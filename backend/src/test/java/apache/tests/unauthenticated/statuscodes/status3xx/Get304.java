@@ -1,6 +1,6 @@
-package apache.tests.statuscodes.unauthenticated.status3xx;
+package apache.tests.unauthenticated.statuscodes.status3xx;
 
-import apache.tests.statuscodes.AbstractStatusCodeTest;
+import apache.tests.unauthenticated.statuscodes.AbstractStatusCodeTest;
 
 public class Get304 extends AbstractStatusCodeTest {
 

@@ -1,4 +1,4 @@
-package apache.tests.statuscodes.sanity;
+package apache.tests.unauthenticated.statuscodes.sanity;
 
 import apache.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,7 +15,7 @@ import static apache.Constants.BASE_API_URL;
 
 public class SanityTests {
 
-    private CloseableHttpClient instance;
+    private CloseableHttpClient client;
 
     private CloseableHttpResponse response;
 
@@ -23,12 +23,12 @@ public class SanityTests {
 
     @BeforeMethod
     public final void before() {
-        instance = HttpClientBuilder.create().build();
+        client = HttpClientBuilder.create().build();
     }
 
     @Test
     public void basicGetRequestNoExceptions() throws IOException {
-        instance.execute(httpget);
+        client.execute(httpget);
     }
 
     @AfterMethod

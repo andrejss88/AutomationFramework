@@ -1,4 +1,4 @@
-package apache.tests.functional;
+package apache.tests.unauthenticated.functional;
 
 import apache.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static apache.Constants.BASE_API_URL;
-import static com.github.utils.UtilMethods.getValueForHeader;
-import static com.github.utils.UtilMethods.getValueForHeaderJava8Way;
 
 public class HeadersTest {
 
@@ -27,10 +25,10 @@ public class HeadersTest {
     @BeforeClass
     public void sendAndGetResponse() throws IOException{
 
-        CloseableHttpClient instance = HttpClientBuilder.create().build();
+        CloseableHttpClient client = HttpClientBuilder.create().build();
 
         HttpGet httpget = new HttpGet(URL);
-        response = instance.execute(httpget);
+        response = client.execute(httpget);
     }
 
     @Test
@@ -63,31 +61,6 @@ public class HeadersTest {
         Assert.assertTrue(expectedCharset.equalsIgnoreCase(actualCharset), "Returned charset is not utf-8");
     }
 
-    @Test
-    public void xssProtectionIsSet(){
-
-        String xssHeader = "X-XSS-Protection";
-        String expectedHeaderValue = "1";
-
-        String actualHeaderValue = getValueForHeader(response, xssHeader).substring(0,1);
-        String actualHeaderValue2 = getValueForHeaderJava8Way(response, xssHeader).substring(0,1);
-
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue2);
-
-    }
-
-    @Test
-    public void xFrameOptionsIsDenied(){
-
-        String xssHeader = "X-Frame-Options";
-        String expectedHeaderValue = "deny";
-
-        String actualHeaderValue = getValueForHeaderJava8Way(response, xssHeader);
-
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
-
-    }
 
     @AfterClass
     public void after() throws IllegalStateException, IOException {

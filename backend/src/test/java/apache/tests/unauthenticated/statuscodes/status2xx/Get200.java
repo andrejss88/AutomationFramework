@@ -1,6 +1,7 @@
-package apache.tests.statuscodes.unauthenticated.status2xx;
+package apache.tests.unauthenticated.statuscodes.status2xx;
 
-import apache.tests.statuscodes.AbstractStatusCodeTest;
+import apache.tests.unauthenticated.statuscodes.AbstractStatusCodeTest;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,7 +12,7 @@ import static apache.Constants.BASE_API_URL;
 
 public class Get200 extends AbstractStatusCodeTest {
 
-    private static final int EXPECTED_STATUS = 200;
+    private static final int EXPECTED_STATUS = HttpStatus.SC_OK;
 
     @Test
     public void baseUrlRequestReturns200() throws IOException {
@@ -31,6 +32,15 @@ public class Get200 extends AbstractStatusCodeTest {
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
 
+    }
+
+    @Test
+    public void clientIsRedirected() throws IOException {
+        HttpGet httpget = new HttpGet(BASE_API_URL  + "repos/twitter/bootstrap");
+        response = client.execute(httpget);
+        int actualStatus = response.getStatusLine().getStatusCode();
+
+        Assert.assertEquals(actualStatus, 200);
     }
 
 }

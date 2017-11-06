@@ -1,7 +1,8 @@
-package apache.tests.statuscodes.unauthenticated.status4xx;
+package apache.tests.unauthenticated.statuscodes.status4xx;
 
-import apache.tests.statuscodes.AbstractStatusCodeTest;
+import apache.tests.unauthenticated.statuscodes.AbstractStatusCodeTest;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,7 @@ import static apache.Constants.BASE_API_URL;
 
 public class Get414 extends AbstractStatusCodeTest{
 
-    private static final int EXPECTED_STATUS = 414;
+    private static final int EXPECTED_STATUS = HttpStatus.SC_REQUEST_URI_TOO_LONG;
 
 
     @Test

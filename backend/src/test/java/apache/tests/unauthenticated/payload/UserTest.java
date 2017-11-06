@@ -1,4 +1,4 @@
-package apache.tests.payload;
+package apache.tests.unauthenticated.payload;
 
 import apache.tests.AbstractTest;
 import com.github.entities.GitHubUser;

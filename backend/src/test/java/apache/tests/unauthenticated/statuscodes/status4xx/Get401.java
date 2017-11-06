@@ -1,6 +1,7 @@
-package apache.tests.statuscodes.unauthenticated.status4xx;
+package apache.tests.unauthenticated.statuscodes.status4xx;
 
-import apache.tests.statuscodes.AbstractStatusCodeTest;
+import apache.tests.unauthenticated.statuscodes.AbstractStatusCodeTest;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -12,7 +13,7 @@ import static apache.Constants.BASE_API_URL;
 
 public class Get401 extends AbstractStatusCodeTest {
 
-    private static final int EXPECTED_STATUS = 401;
+    private static final int EXPECTED_STATUS = HttpStatus.SC_UNAUTHORIZED;
 
     @DataProvider
     public static Object[][] endPointsRequiringAuthorization() {

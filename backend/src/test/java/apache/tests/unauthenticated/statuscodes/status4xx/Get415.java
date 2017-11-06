@@ -1,6 +1,7 @@
-package apache.tests.statuscodes.unauthenticated.status4xx;
+package apache.tests.unauthenticated.statuscodes.status4xx;
 
 import apache.tests.AbstractTest;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,7 +12,7 @@ import static apache.Constants.BASE_API_URL;
 
 public class Get415 extends AbstractTest {
 
-    private static final int EXPECTED_STATUS = 415;
+    private static final int EXPECTED_STATUS = HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE;
 
     @Test
     public void xmlIsUnsupported() throws IOException {

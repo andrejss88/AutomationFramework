@@ -29,7 +29,7 @@ public class UtilMethods {
      * @return the value of the header
      */
 
-    public static String getValueForHeader(CloseableHttpResponse response, String headerName){
+    public static String getValueForHeaderOldWay(CloseableHttpResponse response, String headerName){
         List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
         String returnHeader = "";
         for (Header header : httpHeaders) {
@@ -49,7 +49,7 @@ public class UtilMethods {
      * Same as above, but the Java8 way
      */
 
-    public static String getValueForHeaderJava8Way(CloseableHttpResponse response, String headerName){
+    public static String getValueForHeader(CloseableHttpResponse response, String headerName){
         List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
         Header matchedHeader = httpHeaders.stream()
                 .filter( header -> headerName.equalsIgnoreCase(header.getName()))

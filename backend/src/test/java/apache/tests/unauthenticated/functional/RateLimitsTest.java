@@ -1,4 +1,4 @@
-package apache.tests.functional;
+package apache.tests.unauthenticated.functional;
 
 import apache.tests.AbstractTest;
 import com.github.entities.RateLimit;
@@ -10,9 +10,9 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static apache.Constants.BASE_API_URL;
-import static com.github.utils.UtilMethods.getValueForHeaderJava8Way;
+import static apache.Constants.RATE_LIMIT;
+import static com.github.utils.UtilMethods.getValueForHeader;
 import static com.github.utils.UtilMethods.retrieveResourceFromResponse;
-import static java.lang.Integer.parseInt;
 
 /**
  * Tests rate limits (a.k.a. how many calls you can make before getting temporarily banned :)
@@ -24,8 +24,7 @@ public class RateLimitsTest extends AbstractTest {
     private static final String LIMIT = "X-RateLimit-Limit";
     private static final String LIMIT_VALUE = "60"; // allowed number of requests per hour for "search"
     private static final String LIMIT_REMAINING = "X-RateLimit-Remaining";
-    private static final String RATE_LIMIT = "rate_limit";
-    private static final String SEARCH = "search";
+
 
     @Test(invocationCount = 2)
     public void xRateLimitRemainingRemainsConstant() throws IOException{
@@ -33,7 +32,7 @@ public class RateLimitsTest extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         response = client.execute(httpget);
 
-        String actualHeaderValue = getValueForHeaderJava8Way(response, LIMIT);
+        String actualHeaderValue = getValueForHeader(response, LIMIT);
 
         System.out.println(actualHeaderValue);
 
@@ -47,32 +46,14 @@ public class RateLimitsTest extends AbstractTest {
         // Send 1st GET
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         CloseableHttpResponse response = client.execute(httpget);
-        String hitsRemaining = getValueForHeaderJava8Way(response, LIMIT_REMAINING);
+        String hitsRemaining = getValueForHeader(response, LIMIT_REMAINING);
 
         // Send 2nd GET
         HttpGet httpget2 = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         CloseableHttpResponse response2 = client.execute(httpget2);
-        String hitsRemaining2 = getValueForHeaderJava8Way(response2, LIMIT_REMAINING);
+        String hitsRemaining2 = getValueForHeader(response2, LIMIT_REMAINING);
 
         Assert.assertEquals(hitsRemaining, hitsRemaining2);
-    }
-
-    @Test
-    public void xRateLimitDecreases() throws IOException {
-
-        // Send 1st GET
-        HttpGet httpget = new HttpGet(BASE_API_URL  + SEARCH);
-        response = client.execute(httpget);
-        String hitsRemaining = getValueForHeaderJava8Way(response, LIMIT_REMAINING);
-
-        // Send 2nd GET
-        HttpGet httpget2 = new HttpGet(BASE_API_URL  + SEARCH);
-        response = client.execute(httpget2);
-        String hitsRemaining2 = getValueForHeaderJava8Way(response, LIMIT_REMAINING);
-
-        int diff = parseInt(hitsRemaining) - parseInt(hitsRemaining2); // should be at least 1
-
-        Assert.assertTrue(diff >= 1);
     }
 
     @Test

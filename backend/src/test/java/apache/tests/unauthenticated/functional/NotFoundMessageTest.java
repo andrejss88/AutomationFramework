@@ -1,4 +1,4 @@
-package apache.tests.functional;
+package apache.tests.unauthenticated.functional;
 
 import apache.tests.AbstractTest;
 import com.github.entities.NotFoundMessage;

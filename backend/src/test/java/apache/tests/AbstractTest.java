@@ -3,11 +3,12 @@ package apache.tests;
 import apache.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.io.IOException;
+
+import static com.github.Factories.ClientFactory.getDefaultClient;
 
 public class AbstractTest {
 
@@ -17,11 +18,12 @@ public class AbstractTest {
 
     @BeforeMethod
     public void before() {
-        client = HttpClientBuilder.create().build();
+        client = getDefaultClient();
     }
 
     @AfterMethod
     public void after() throws IllegalStateException, IOException {
         ResponseUtil.closeResponse(response);
+        client.close();
     }
 }
