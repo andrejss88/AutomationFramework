@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import static apache.Constants.BASE_API_URL;
+import static com.github.Constants.BASE_API_URL;
 import static java.util.Base64.getEncoder;
 
 public class BasicAuthenticationTest extends AbstractTest {

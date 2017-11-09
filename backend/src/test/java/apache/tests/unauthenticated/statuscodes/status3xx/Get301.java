@@ -11,8 +11,8 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static apache.Constants.BASE_API_URL;
-import static apache.Constants.RATE_LIMIT;
+import static com.github.Constants.BASE_API_URL;
+import static com.github.Constants.RATE_LIMIT;
 
 public class Get301 extends AbstractTest {
 

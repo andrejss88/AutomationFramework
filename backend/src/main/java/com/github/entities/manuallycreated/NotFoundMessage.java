@@ -1,4 +1,4 @@
-package com.github.entities;
+package com.github.entities.manuallycreated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

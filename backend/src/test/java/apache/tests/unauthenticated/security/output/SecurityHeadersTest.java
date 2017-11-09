@@ -1,6 +1,6 @@
 package apache.tests.unauthenticated.security.output;
 
-import apache.tests.AbstractTest;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,12 +11,12 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static apache.Constants.BASE_API_URL;
-import static apache.Constants.RATE_LIMIT;
+import static com.github.Constants.BASE_API_URL;
+import static com.github.Constants.RATE_LIMIT;
 import static com.github.utils.UtilMethods.getValueForHeader;
 import static com.github.utils.UtilMethods.getValueForHeaderOldWay;
 
-public class SecurityHeadersTest extends AbstractTest {
+public class SecurityHeadersTest {
 
     private CloseableHttpResponse response;
 
@@ -82,5 +82,17 @@ public class SecurityHeadersTest extends AbstractTest {
         String actualHeaderValue = getValueForHeader(response, header);
 
         Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
+    }
+
+    @Test
+    public void hstsHeaderIsSet(){
+        String header = "Strict-Transport-Security";
+
+        String expectedHeaderValue = "includeSubdomains; preload";
+        String actualHeaderValue = getValueForHeader(response, header);
+
+        boolean headerIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
+
+        Assert.assertTrue(headerIsPresent);
     }
 }

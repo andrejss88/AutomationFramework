@@ -10,21 +10,18 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 
-public class Get415 extends AbstractTest {
+public class Get422 extends AbstractTest {
 
-    private static final int EXPECTED_STATUS = HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE;
+    private static final int EXPECTED_STATUS = HttpStatus.SC_UNPROCESSABLE_ENTITY;
 
     @Test
-    public void xmlIsUnsupported() throws IOException {
-        HttpGet httpget = new HttpGet(BASE_API_URL  + "users/andrejss88");
+    public void missingSearchKeyword() throws IOException {
 
-        httpget.setHeader("Accept", "application/xml");
-        httpget.setHeader("Content-type", "application/xml");
-
+        HttpGet httpget = new HttpGet(BASE_API_URL  + "search/repositories?q=");
         response = client.execute(httpget);
+
         int actualStatus = response.getStatusLine().getStatusCode();
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
-
     }
 }

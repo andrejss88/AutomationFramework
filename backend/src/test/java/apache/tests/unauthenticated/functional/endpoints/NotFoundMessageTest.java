@@ -1,15 +1,15 @@
-package apache.tests.unauthenticated.functional;
+package apache.tests.unauthenticated.functional.endpoints;
 
 import apache.tests.AbstractTest;
-import com.github.entities.NotFoundMessage;
+import com.github.entities.manuallycreated.NotFoundMessage;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static apache.Constants.BASE_API_URL;
-import static com.github.utils.UtilMethods.retrieveResourceFromResponse;
+import static com.github.Constants.BASE_API_URL;
+import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 
 public class NotFoundMessageTest extends AbstractTest{
 

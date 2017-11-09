@@ -1,26 +1,20 @@
 package com.github.utils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.testng.TestException;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class UtilMethods {
-
-    public static <T> T retrieveResourceFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
-
-        String jsonFromResponse = EntityUtils.toString(response.getEntity());
-
-        return new ObjectMapper()
-                  .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                  .readValue(jsonFromResponse, clazz);
-    }
 
     /**
      * Find a header from the entire response entity
@@ -57,4 +51,20 @@ public class UtilMethods {
 
         return matchedHeader.getValue();
     }
+
+    public static HttpResponse executeAndGetResponse(URI uri) throws IOException {
+
+        HttpGet httpGet = new HttpGet(uri);
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpResponse response = client.execute(httpGet);
+
+        int statusCode = response.getStatusLine().getStatusCode();
+        if (statusCode != 200) {
+            String reason = response.getStatusLine().getReasonPhrase();
+            throw new TestException(String.format("Expected Status 200, but got: '%d' with reason: %s ", statusCode, reason));
+        }
+        return Objects.requireNonNull(response);
+    }
+
+
 }

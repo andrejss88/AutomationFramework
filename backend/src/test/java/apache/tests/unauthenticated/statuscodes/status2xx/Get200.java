@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static apache.Constants.BASE_API_URL;
+import static com.github.Constants.BASE_API_URL;
 
 public class Get200 extends AbstractStatusCodeTest {
 

@@ -1,7 +1,7 @@
-package apache.tests.unauthenticated.functional;
+package apache.tests.unauthenticated.functional.endpoints;
 
 import apache.tests.AbstractTest;
-import com.github.entities.RateLimit;
+import com.github.entities.manuallycreated.RateLimit;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static apache.Constants.BASE_API_URL;
-import static apache.Constants.RATE_LIMIT;
+import static com.github.Constants.BASE_API_URL;
+import static com.github.Constants.RATE_LIMIT;
+import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 import static com.github.utils.UtilMethods.getValueForHeader;
-import static com.github.utils.UtilMethods.retrieveResourceFromResponse;
 
 /**
  * Tests rate limits (a.k.a. how many calls you can make before getting temporarily banned :)
@@ -22,12 +22,13 @@ public class RateLimitsTest extends AbstractTest {
     // Docs: https://developer.github.com/v3/rate_limit/
 
     private static final String LIMIT = "X-RateLimit-Limit";
-    private static final String LIMIT_VALUE = "60"; // allowed number of requests per hour for "search"
+    private static final String LIMIT_VALUE = "60"; // allowed number of requests per hour for queries other than "search"
+    private static final String SEARCH_LIMIT_VALUE = "10";
     private static final String LIMIT_REMAINING = "X-RateLimit-Remaining";
 
 
     @Test(invocationCount = 2)
-    public void xRateLimitRemainingRemainsConstant() throws IOException{
+    public void xRateLimitRemainsConstant() throws IOException{
 
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         response = client.execute(httpget);
@@ -69,6 +70,17 @@ public class RateLimitsTest extends AbstractTest {
 
         Assert.assertEquals(actualCoreLimit, "60");
         Assert.assertEquals(actualSearchLimit, "10");
+    }
+
+    @Test
+    public void searchRateLimitIs10() throws IOException {
+
+        HttpGet httpget = new HttpGet(BASE_API_URL  + "search/repositories?q=");
+        response = client.execute(httpget);
+
+        String actualHeaderValue = getValueForHeader(response, LIMIT);
+
+        Assert.assertEquals(SEARCH_LIMIT_VALUE, actualHeaderValue);
     }
 
 }
