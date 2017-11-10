@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.UtilMethods.getValueForHeader;
+import static com.github.utils.HeaderUtils.getValueForHeader;
 
 public class OptionsMethodTest extends AbstractTest{
 

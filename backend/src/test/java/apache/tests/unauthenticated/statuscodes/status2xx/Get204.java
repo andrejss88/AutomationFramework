@@ -1,6 +1,6 @@
 package apache.tests.unauthenticated.statuscodes.status2xx;
 
-import com.github.utils.ResponseUtil;
+import com.github.utils.ResponseUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.UtilMethods.getValueForHeader;
+import static com.github.utils.HeaderUtils.getValueForHeader;
 
 public class Get204 {
 
@@ -63,7 +63,7 @@ public class Get204 {
 
     @AfterClass
     public void after() throws IllegalStateException, IOException {
-        ResponseUtil.closeResponse(response);
+        ResponseUtils.closeResponse(response);
         client.close();
     }
 

@@ -5,9 +5,9 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 
 import java.io.IOException;
 
-public class ResponseUtil {
+public class ResponseUtils {
 
-    private ResponseUtil() {
+    private ResponseUtils() {
     }
 
     public static void closeResponse(CloseableHttpResponse response) throws IOException {

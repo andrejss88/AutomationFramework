@@ -13,10 +13,13 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 
 import static com.github.Constants.BASE_API_URL_NO_PROTOCOL;
-import static com.github.utils.UtilMethods.executeAndGetResponse;
+import static com.github.utils.HeaderUtils.executeAndGetResponse;
 
 public class HttpHelper {
 
+    private HttpHelper(){
+
+    }
 
     public static JSONArray getReposForUser(String user) {
 

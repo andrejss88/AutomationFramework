@@ -1,6 +1,6 @@
 package apache.tests.unauthenticated.functional.metadata;
 
-import com.github.utils.ResponseUtil;
+import com.github.utils.ResponseUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
@@ -65,6 +65,6 @@ public class HeadersTest {
 
     @AfterClass
     public void after() throws IllegalStateException, IOException {
-        ResponseUtil.closeResponse(response);
+        ResponseUtils.closeResponse(response);
     }
 }

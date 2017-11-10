@@ -13,8 +13,8 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
-import static com.github.utils.UtilMethods.getValueForHeader;
-import static com.github.utils.UtilMethods.getValueForHeaderOldWay;
+import static com.github.utils.HeaderUtils.getValueForHeader;
+import static com.github.utils.HeaderUtils.getValueForHeaderOldWay;
 
 public class SecurityHeadersTest {
 

@@ -1,6 +1,6 @@
 package apache.tests.unauthenticated.statuscodes.sanity;
 
-import com.github.utils.ResponseUtil;
+import com.github.utils.ResponseUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -33,7 +33,7 @@ public class SanityTests {
 
     @AfterMethod
     public final void after() throws IllegalStateException, IOException {
-        ResponseUtil.closeResponse(response);
+        ResponseUtils.closeResponse(response);
     }
 
 }

@@ -1,6 +1,6 @@
 package apache.tests;
 
-import com.github.utils.ResponseUtil;
+import com.github.utils.ResponseUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.testng.annotations.AfterClass;
@@ -23,7 +23,7 @@ public class AbstractTest {
 
     @AfterClass
     public void after() throws IllegalStateException, IOException {
-        ResponseUtil.closeResponse(response);
+        ResponseUtils.closeResponse(response);
         client.close();
     }
 }

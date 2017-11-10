@@ -14,7 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class UtilMethods {
+public class HeaderUtils {
+
+    private HeaderUtils(){}
 
     /**
      * Find a header from the entire response entity
@@ -52,7 +54,7 @@ public class UtilMethods {
         return matchedHeader.getValue();
     }
 
-    public static HttpResponse executeAndGetResponse(URI uri) throws IOException {
+    static HttpResponse executeAndGetResponse(URI uri) throws IOException {
 
         HttpGet httpGet = new HttpGet(uri);
         CloseableHttpClient client = HttpClientBuilder.create().build();

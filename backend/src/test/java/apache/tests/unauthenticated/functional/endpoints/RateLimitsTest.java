@@ -1,8 +1,8 @@
 package apache.tests.unauthenticated.functional.endpoints;
 
 import apache.tests.AbstractTest;
-import com.github.utils.ResponseUtil;
 import com.github.entities.manuallycreated.RateLimit;
+import com.github.utils.ResponseUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -14,8 +14,8 @@ import java.io.IOException;
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
 import static com.github.factories.ClientFactory.getDefaultClient;
+import static com.github.utils.HeaderUtils.getValueForHeader;
 import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
-import static com.github.utils.UtilMethods.getValueForHeader;
 
 /**
  * Tests rate limits (a.k.a. how many calls you can make before getting temporarily banned :)
@@ -61,8 +61,8 @@ public class RateLimitsTest extends AbstractTest {
 
         Assert.assertEquals(hitsRemaining, hitsRemaining2);
 
-        ResponseUtil.closeResponse(response);
-        ResponseUtil.closeResponse(response2);
+        ResponseUtils.closeResponse(response);
+        ResponseUtils.closeResponse(response2);
         client.close();
     }
 

@@ -10,6 +10,8 @@ import java.util.Objects;
 
 public class MappingUtils {
 
+    private MappingUtils(){}
+
     /**
      * Use default (strict) ObjectMapper (that fails if something's wrong) to verify entity schema hasn't changed
      * @param response: response received from the API
