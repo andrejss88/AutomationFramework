@@ -1,9 +1,11 @@
 package apache.tests.unauthenticated.functional.endpoints;
 
 import apache.tests.AbstractTest;
+import com.github.utils.ResponseUtil;
 import com.github.entities.manuallycreated.RateLimit;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,6 +13,7 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
+import static com.github.factories.ClientFactory.getDefaultClient;
 import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 import static com.github.utils.UtilMethods.getValueForHeader;
 
@@ -27,8 +30,8 @@ public class RateLimitsTest extends AbstractTest {
     private static final String LIMIT_REMAINING = "X-RateLimit-Remaining";
 
 
-    @Test(invocationCount = 2)
-    public void xRateLimitRemainsConstant() throws IOException{
+    @Test
+    public void xRateLimitValueIs60() throws IOException{
 
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         response = client.execute(httpget);
@@ -44,6 +47,8 @@ public class RateLimitsTest extends AbstractTest {
     @Test
     public void getRateLimitStatusDoesNotCount() throws IOException {
 
+        CloseableHttpClient client = getDefaultClient();
+
         // Send 1st GET
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         CloseableHttpResponse response = client.execute(httpget);
@@ -55,6 +60,10 @@ public class RateLimitsTest extends AbstractTest {
         String hitsRemaining2 = getValueForHeader(response2, LIMIT_REMAINING);
 
         Assert.assertEquals(hitsRemaining, hitsRemaining2);
+
+        ResponseUtil.closeResponse(response);
+        ResponseUtil.closeResponse(response2);
+        client.close();
     }
 
     @Test
@@ -68,8 +77,8 @@ public class RateLimitsTest extends AbstractTest {
         String actualCoreLimit = resource.getCoreLimit();
         String actualSearchLimit = resource.getSearchLimit();
 
-        Assert.assertEquals(actualCoreLimit, "60");
-        Assert.assertEquals(actualSearchLimit, "10");
+        Assert.assertEquals(actualCoreLimit, LIMIT_VALUE);
+        Assert.assertEquals(actualSearchLimit, SEARCH_LIMIT_VALUE);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package apache.tests.unauthenticated.functional.metadata;
 
-import apache.utils.ResponseUtil;
+import com.github.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
@@ -60,6 +60,7 @@ public class HeadersTest {
 
         Assert.assertTrue(expectedCharset.equalsIgnoreCase(actualCharset), "Returned charset is not utf-8");
     }
+
 
 
     @AfterClass

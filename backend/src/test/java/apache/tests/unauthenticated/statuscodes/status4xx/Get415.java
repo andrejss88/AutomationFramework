@@ -1,6 +1,7 @@
 package apache.tests.unauthenticated.statuscodes.status4xx;
 
 import apache.tests.AbstractTest;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.testng.Assert;
@@ -18,8 +19,8 @@ public class Get415 extends AbstractTest {
     public void xmlIsUnsupported() throws IOException {
         HttpGet httpget = new HttpGet(BASE_API_URL  + "users/andrejss88");
 
-        httpget.setHeader("Accept", "application/xml");
-        httpget.setHeader("Content-type", "application/xml");
+        httpget.setHeader(HttpHeaders.ACCEPT, "application/xml");
+        httpget.setHeader(HttpHeaders.CONTENT_TYPE, "application/xml");
 
         response = client.execute(httpget);
         int actualStatus = response.getStatusLine().getStatusCode();

@@ -4,8 +4,6 @@ import apache.tests.AbstractTest;
 import com.github.entities.manuallycreated.User;
 import com.github.utils.HttpHelper;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.testng.Assert;
@@ -27,8 +25,6 @@ public class UserTest extends AbstractTest{
 
     @BeforeClass
     public void sendAndGetResponse() throws IOException {
-
-        CloseableHttpClient client = HttpClientBuilder.create().build();
 
         HttpGet httpget = new HttpGet(USER_URL);
         response = client.execute(httpget);

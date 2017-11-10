@@ -1,6 +1,6 @@
 package apache.tests.unauthenticated.statuscodes.sanity;
 
-import apache.utils.ResponseUtil;
+import com.github.utils.ResponseUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
