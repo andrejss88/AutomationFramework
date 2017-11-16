@@ -3,10 +3,8 @@ package apache.tests.unauthenticated.functional.payload;
 import apache.tests.AbstractTest;
 import com.github.entities.manuallycreated.User;
 import com.github.utils.HttpHelper;
-import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -14,6 +12,7 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 import static com.github.utils.HttpHelper.valueIsPresent;
+import static org.testng.Assert.*;
 
 public class UserTest extends AbstractTest{
 
@@ -24,18 +23,15 @@ public class UserTest extends AbstractTest{
 
     @BeforeClass
     public void sendAndGetResponse() throws IOException {
-
-        HttpGet httpget = new HttpGet(USER_URL);
-        response = client.execute(httpget);
-
+        
+        response = clive.sendGet(USER_URL);
         testUser = rob.retrieveResourceFromResponse(response, User.class);
     }
 
     @Test
     public void userLoginIsCorrect(){
-
-        String expectedUserLogin = VALID_USER;
-        Assert.assertEquals(expectedUserLogin, testUser.getLogin());
+        
+        assertEquals(testUser.getLogin(), VALID_USER);
     }
 
     @Test
@@ -43,7 +39,7 @@ public class UserTest extends AbstractTest{
 
         String expectedUserId = "11834443";
 
-        Assert.assertEquals(expectedUserId, testUser.getId());
+        assertEquals(testUser.getId(), expectedUserId);
     }
 
     @Test(description = "this is an interesting one," +
@@ -54,7 +50,7 @@ public class UserTest extends AbstractTest{
         int publicRepoCount = Integer.valueOf(testUser.getPublicRepos());
         int repoIdCount = HttpHelper.getReposForUser(VALID_USER).length();
 
-        Assert.assertEquals(publicRepoCount, repoIdCount);
+        assertEquals(publicRepoCount, repoIdCount);
 
     }
 
@@ -64,7 +60,7 @@ public class UserTest extends AbstractTest{
         JSONArray repos = HttpHelper.getReposForUser(VALID_USER);
         boolean repoExists = valueIsPresent(repos,"name", "LQuiz");
 
-        Assert.assertTrue(repoExists);
+        assertTrue(repoExists);
 
     }
 
@@ -74,10 +70,6 @@ public class UserTest extends AbstractTest{
         JSONArray repos = HttpHelper.getReposForUser(VALID_USER);
         boolean hasPrivateRepos = valueIsPresent(repos,"private", "true");
 
-        Assert.assertFalse(hasPrivateRepos);
-
+        assertFalse(hasPrivateRepos);
     }
-
-
-
 }

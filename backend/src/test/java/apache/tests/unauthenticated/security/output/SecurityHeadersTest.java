@@ -1,12 +1,7 @@
 package apache.tests.unauthenticated.security.output;
 
-import com.github.handlers.impl.OldResponseHandler;
+import apache.tests.AbstractTest;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -14,21 +9,14 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
-public class SecurityHeadersTest {
-
-    private CloseableHttpResponse response;
-    private OldResponseHandler rob;
-
+public class SecurityHeadersTest extends AbstractTest {
 
     @BeforeClass
     public void sendAndGetResponse() throws IOException {
-
-        CloseableHttpClient client = HttpClientBuilder.create().build();
-
-        HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        response = client.execute(httpget);
-        rob = new OldResponseHandler();
+        response = clive.sendGet(BASE_API_URL  + RATE_LIMIT);
     }
 
     @Test
@@ -37,11 +25,11 @@ public class SecurityHeadersTest {
         String xssHeader = "X-XSS-Protection";
         String expectedHeaderValue = "1";
 
-        String actualHeaderValue = rob.getValueForHeader(response, xssHeader).substring(0,1);
-        String actualHeaderValue2 = rob.getValueForHeader(response, xssHeader).substring(0,1);
+        String actualHeaderValue = rob.getHeaderValue(response, xssHeader).substring(0,1);
+        String actualHeaderValue2 = rob.getHeaderValue(response, xssHeader).substring(0,1);
 
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue2);
+        assertEquals(actualHeaderValue, expectedHeaderValue);
+        assertEquals(actualHeaderValue2, expectedHeaderValue);
 
     }
 
@@ -51,9 +39,9 @@ public class SecurityHeadersTest {
         String xssHeader = "X-Frame-Options";
         String expectedHeaderValue = "deny";
 
-        String actualHeaderValue = rob.getValueForHeader(response, xssHeader);
+        String actualHeaderValue = rob.getHeaderValue(response, xssHeader);
 
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
+        assertEquals(actualHeaderValue, expectedHeaderValue);
     }
 
     @Test
@@ -62,9 +50,9 @@ public class SecurityHeadersTest {
         String header = "Content-Security-Policy";
         String expectedHeaderValue = "default-src 'none'";
 
-        String actualHeaderValue = rob.getValueForHeader(response, header);
+        String actualHeaderValue = rob.getHeaderValue(response, header);
 
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
+        assertEquals(actualHeaderValue, expectedHeaderValue);
     }
 
     @Test(expectedExceptions = RuntimeException.class)
@@ -72,7 +60,7 @@ public class SecurityHeadersTest {
 
         String header = "X-Powered-By";
 
-        rob.getValueForHeader(response, header);
+        rob.getHeaderValue(response, header);
     }
 
     @Test
@@ -80,9 +68,9 @@ public class SecurityHeadersTest {
         String header = "X-Content-Type-Options";
         String expectedHeaderValue = "nosniff";
 
-        String actualHeaderValue = rob.getValueForHeader(response, header);
+        String actualHeaderValue = rob.getHeaderValue(response, header);
 
-        Assert.assertEquals(expectedHeaderValue, actualHeaderValue);
+        assertEquals(actualHeaderValue, expectedHeaderValue);
     }
 
     @Test
@@ -90,10 +78,10 @@ public class SecurityHeadersTest {
         String header = "Strict-Transport-Security";
 
         String expectedHeaderValue = "includeSubdomains; preload";
-        String actualHeaderValue = rob.getValueForHeader(response, header);
+        String actualHeaderValue = rob.getHeaderValue(response, header);
 
         boolean headerIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
 
-        Assert.assertTrue(headerIsPresent);
+        assertTrue(headerIsPresent);
     }
 }

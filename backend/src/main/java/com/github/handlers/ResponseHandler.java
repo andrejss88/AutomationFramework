@@ -20,7 +20,7 @@ public interface ResponseHandler {
      * @return the value of the header
      */
 
-    String getValueForHeader(CloseableHttpResponse response, String headerName);
+    String getHeaderValue(CloseableHttpResponse response, String headerName);
 
     /**
      * Use default (strict) ObjectMapper (that fails if something's wrong) to verify entity schema hasn't changed

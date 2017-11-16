@@ -8,14 +8,15 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 
 import static com.github.Constants.BASE_API_URL;
+import static com.github.factories.ClientFactory.getDefaultClient;
 import static java.util.Base64.getEncoder;
+import static org.testng.Assert.assertEquals;
 
 public class BasicAuthenticationTest extends AbstractTest {
 
@@ -23,6 +24,8 @@ public class BasicAuthenticationTest extends AbstractTest {
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_UNAUTHORIZED; // 401
     private static final String SECURED_URL = BASE_API_URL + "authorizations";
+
+    private CloseableHttpClient client = getDefaultClient();
 
     @Test
     public void incorrectDetailsFail_UsingCredentialsManager() throws IOException{
@@ -32,7 +35,7 @@ public class BasicAuthenticationTest extends AbstractTest {
         CloseableHttpResponse response = client.execute(new HttpGet(SECURED_URL));
         int statusCode = rob.getStatusCode(response);
 
-        Assert.assertEquals(statusCode, EXPECTED_STATUS);
+        assertEquals(statusCode, EXPECTED_STATUS);
 
     }
 
@@ -50,7 +53,7 @@ public class BasicAuthenticationTest extends AbstractTest {
 
         int statusCode = rob.getStatusCode(response);
 
-        Assert.assertEquals(statusCode, EXPECTED_STATUS);
+        assertEquals(statusCode, EXPECTED_STATUS);
 
     }
 
@@ -65,7 +68,7 @@ public class BasicAuthenticationTest extends AbstractTest {
 
         int statusCode = rob.getStatusCode(response);
 
-        Assert.assertEquals(statusCode, EXPECTED_STATUS);
+        assertEquals(statusCode, EXPECTED_STATUS);
     }
 
 

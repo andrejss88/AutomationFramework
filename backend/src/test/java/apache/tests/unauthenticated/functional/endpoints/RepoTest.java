@@ -2,16 +2,14 @@ package apache.tests.unauthenticated.functional.endpoints;
 
 import apache.tests.AbstractTest;
 import com.github.entities.generated.Repo;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class RepoTest extends AbstractTest {
 
@@ -22,18 +20,13 @@ public class RepoTest extends AbstractTest {
 
     @BeforeClass
     public void sendAndGetResponse() throws IOException {
-
-        CloseableHttpClient client = HttpClientBuilder.create().build();
-
-        HttpGet httpget = new HttpGet(URL);
-        response = client.execute(httpget);
-
+        response = clive.sendGet(URL);
         testRepo = rob.retrieveResourceFromResponse(response, Repo.class);
     }
 
     @Test
     public void repoIsNotPrivate(){
-        Assert.assertFalse(testRepo.getPrivate());
+        assertFalse(testRepo.getPrivate());
     }
 
     @Test
@@ -44,7 +37,7 @@ public class RepoTest extends AbstractTest {
 
         String expectedFullName =  owner + "/" + name;
 
-        Assert.assertEquals(testRepo.getFullName(), expectedFullName);
+        assertEquals(testRepo.getFullName(), expectedFullName);
 
     }
 }

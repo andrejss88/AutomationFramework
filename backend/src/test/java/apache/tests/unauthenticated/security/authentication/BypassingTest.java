@@ -3,13 +3,12 @@ package apache.tests.unauthenticated.security.authentication;
 import apache.tests.AbstractTest;
 import com.github.dataproviders.EndPointDataProviders;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpHead;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
+import static org.testng.Assert.assertEquals;
 
 public class BypassingTest extends AbstractTest {
 
@@ -19,10 +18,9 @@ public class BypassingTest extends AbstractTest {
           description = "HEAD instead of GET doesn't allow to view content")
     public void headFailsOnSecureEndpoints(String endpoint) throws IOException {
 
-        HttpHead httpHead = new HttpHead(BASE_API_URL  + endpoint);
-        response = client.execute(httpHead);
+        response = clive.sendHead(BASE_API_URL  + endpoint);
         int actualStatus = rob.getStatusCode(response);
 
-        Assert.assertEquals(actualStatus, EXPECTED_STATUS);
+        assertEquals(actualStatus, EXPECTED_STATUS);
     }
 }

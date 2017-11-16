@@ -48,7 +48,7 @@ public class GraphQlTest {
         String header = "X-GitHub-Media-Type";
 
         String expectedHeaderValue = "github.v4";
-        String actualHeaderValue = rob.getValueForHeader(response, header);
+        String actualHeaderValue = rob.getHeaderValue(response, header);
 
         boolean headerIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
 
@@ -57,14 +57,14 @@ public class GraphQlTest {
 
     @Test
     public void xRateLimitIsZero(){
-        String actualHeaderValue = rob.getValueForHeader(response, "X-RateLimit-Limit");
+        String actualHeaderValue = rob.getHeaderValue(response, "X-RateLimit-Limit");
 
         Assert.assertEquals(actualHeaderValue, "0");
     }
 
     @Test
     public void xRateLimitRemainingIsZero(){
-        String actualHeaderValue = rob.getValueForHeader(response, "X-RateLimit-Remaining");
+        String actualHeaderValue = rob.getHeaderValue(response, "X-RateLimit-Remaining");
 
         Assert.assertEquals("0", actualHeaderValue);
     }

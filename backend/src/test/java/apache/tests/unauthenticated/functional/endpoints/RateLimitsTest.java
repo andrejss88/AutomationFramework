@@ -3,16 +3,13 @@ package apache.tests.unauthenticated.functional.endpoints;
 import apache.tests.AbstractTest;
 import com.github.entities.manuallycreated.RateLimit;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
-import static com.github.factories.ClientFactory.getDefaultClient;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Tests rate limits (a.k.a. how many calls you can make before getting temporarily banned :)
@@ -26,67 +23,59 @@ public class RateLimitsTest extends AbstractTest {
     private static final String SEARCH_LIMIT_VALUE = "10";
     private static final String LIMIT_REMAINING = "X-RateLimit-Remaining";
 
+    private static final String RATE_LIMIT_URL = BASE_API_URL  + RATE_LIMIT;
+
 
     @Test
     public void xRateLimitValueIs60() throws IOException{
 
-        HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        response = client.execute(httpget);
+        response = clive.sendGet(RATE_LIMIT_URL);
 
-        String actualHeaderValue = rob.getValueForHeader(response, LIMIT);
+        String actualHeaderValue = rob.getHeaderValue(response, LIMIT);
 
-        System.out.println(actualHeaderValue);
-
-        Assert.assertEquals(LIMIT_VALUE, actualHeaderValue);
+        assertEquals(LIMIT_VALUE, actualHeaderValue);
     }
 
 
     @Test
     public void getRateLimitStatusDoesNotCount() throws IOException {
 
-        CloseableHttpClient client = getDefaultClient();
-
         // Send 1st GET
-        HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        CloseableHttpResponse response = client.execute(httpget);
-        String hitsRemaining = rob.getValueForHeader(response, LIMIT_REMAINING);
+        CloseableHttpResponse response = clive.sendGet(RATE_LIMIT_URL);
+        String hitsRemaining = rob.getHeaderValue(response, LIMIT_REMAINING);
 
         // Send 2nd GET
-        HttpGet httpget2 = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        CloseableHttpResponse response2 = client.execute(httpget2);
-        String hitsRemaining2 = rob.getValueForHeader(response2, LIMIT_REMAINING);
+        CloseableHttpResponse response2 = clive.sendGet(RATE_LIMIT_URL);
+        String hitsRemaining2 = rob.getHeaderValue(response2, LIMIT_REMAINING);
 
-        Assert.assertEquals(hitsRemaining, hitsRemaining2);
+        assertEquals(hitsRemaining, hitsRemaining2);
 
         rob.closeResponse(response);
         rob.closeResponse(response2);
-        client.close();
     }
 
     @Test
     public void correctRateLimitsAreSet() throws IOException{
 
-        HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
-        response = client.execute(httpget);
+        response = clive.sendGet(RATE_LIMIT_URL);
 
         RateLimit resource = rob.retrieveResourceFromResponse(response, RateLimit.class);
 
         String actualCoreLimit = resource.getCoreLimit();
         String actualSearchLimit = resource.getSearchLimit();
 
-        Assert.assertEquals(actualCoreLimit, LIMIT_VALUE);
-        Assert.assertEquals(actualSearchLimit, SEARCH_LIMIT_VALUE);
+        assertEquals(actualCoreLimit, LIMIT_VALUE);
+        assertEquals(actualSearchLimit, SEARCH_LIMIT_VALUE);
     }
 
     @Test
     public void searchRateLimitIs10() throws IOException {
 
-        HttpGet httpget = new HttpGet(BASE_API_URL  + "search/repositories?q=");
-        response = client.execute(httpget);
+        response = clive.sendGet(BASE_API_URL  + "search/repositories?q=");
 
-        String actualHeaderValue = rob.getValueForHeader(response, LIMIT);
+        String actualHeaderValue = rob.getHeaderValue(response, LIMIT);
 
-        Assert.assertEquals(SEARCH_LIMIT_VALUE, actualHeaderValue);
+        assertEquals(SEARCH_LIMIT_VALUE, actualHeaderValue);
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class OldResponseHandler extends AbstractResponseHandler {
 
     @Override
-    public String getValueForHeader(CloseableHttpResponse response, String headerName) {
+    public String getHeaderValue(CloseableHttpResponse response, String headerName) {
         List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
         String returnHeader = "";
         for (Header header : httpHeaders) {

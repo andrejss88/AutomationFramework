@@ -1,38 +1,23 @@
 package apache.tests.unauthenticated.statuscodes.status2xx;
 
-import com.github.handlers.ResponseHandler;
-import com.github.handlers.impl.DefaultResponseHandler;
+import apache.tests.AbstractTest;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpOptions;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
+import static org.testng.Assert.assertEquals;
 
-public class Get204 {
+public class Get204 extends AbstractTest {
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_NO_CONTENT;
 
-    private CloseableHttpClient client;
-    private CloseableHttpResponse response;
-    private ResponseHandler rob;
-
     @BeforeClass
     public void sendAndGetResponse() throws IOException{
-
-        client = HttpClientBuilder.create().build();
-
-        HttpOptions httpOptions = new HttpOptions(BASE_API_URL);
-        response = client.execute(httpOptions);
-        rob = new DefaultResponseHandler();
+        response = clive.sendOptions(BASE_API_URL);
     }
 
     @Test
@@ -40,7 +25,7 @@ public class Get204 {
 
         int actualStatus = rob.getStatusCode(response);
 
-        Assert.assertEquals(actualStatus, EXPECTED_STATUS);
+        assertEquals(actualStatus, EXPECTED_STATUS);
     }
 
     @Test
@@ -48,9 +33,9 @@ public class Get204 {
 
         String header = HttpHeaders.CONTENT_TYPE;
         String expectedContentType = "application/octet-stream";
-        String actualContentType = rob.getValueForHeader(response, header);
+        String actualContentType = rob.getHeaderValue(response, header);
 
-        Assert.assertEquals(actualContentType, expectedContentType);
+        assertEquals(actualContentType, expectedContentType);
     }
 
     @Test
@@ -58,15 +43,8 @@ public class Get204 {
         String header = "Access-Control-Allow-Methods";
         String expectedContentType = "GET, POST, PATCH, PUT, DELETE";
 
-        String actualContentType = rob.getValueForHeader(response, header);
+        String actualContentType = rob.getHeaderValue(response, header);
 
-        Assert.assertEquals(actualContentType, expectedContentType);
+        assertEquals(actualContentType, expectedContentType);
     }
-
-    @AfterClass
-    public void after() throws IllegalStateException, IOException {
-        rob.closeResponse(response);
-        client.close();
-    }
-
 }
