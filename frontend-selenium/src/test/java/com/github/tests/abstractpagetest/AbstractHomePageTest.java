@@ -4,7 +4,6 @@ import com.github.pages.home.HomePage;
 import org.testng.annotations.BeforeMethod;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Method;
 
 public abstract class AbstractHomePageTest extends AbstractPageTest {
 
@@ -12,11 +11,7 @@ public abstract class AbstractHomePageTest extends AbstractPageTest {
     protected HomePage home;
 
     @BeforeMethod
-    public void commonSetup(Method method) {
-
-        setTestCaseInfo(method);
-
-        test = extent.startTest(testCaseName, testCaseDesc);
+    public void homePageSetup() {
         test.assignCategory("HomePage");
         home.openPage();
     }

@@ -11,7 +11,8 @@ public abstract class AbstractSignInPageTest extends AbstractPageTest {
     protected SignInPage signInPage;
 
     @BeforeMethod
-    public void commonSetup() {
+    public void signInPageSetup() {
+        test.assignCategory("SignInPage");
         signInPage.openPage();
     }
 }

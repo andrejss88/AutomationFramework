@@ -4,7 +4,6 @@ import com.github.pages.search.SearchPage;
 import org.testng.annotations.BeforeMethod;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Method;
 
 public abstract class AbstractSearchPageTest extends AbstractPageTest {
 
@@ -12,11 +11,7 @@ public abstract class AbstractSearchPageTest extends AbstractPageTest {
     protected SearchPage search;
 
     @BeforeMethod
-    public void commonSetup(Method method) {
-
-        setTestCaseInfo(method);
-
-        test = extent.startTest(testCaseName, testCaseDesc);
+    public void searchPageSetup() {
         test.assignCategory("SearchPage");
         search.openPage();
     }

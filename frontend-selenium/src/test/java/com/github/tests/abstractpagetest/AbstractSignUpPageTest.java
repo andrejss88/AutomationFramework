@@ -11,7 +11,8 @@ public abstract class AbstractSignUpPageTest extends AbstractPageTest {
     protected SignUpPage signUpPage;
 
     @BeforeMethod
-    public void commonSetup() {
+    public void signUpPageSetup() {
+        test.assignCategory("SignUpPage");
         signUpPage.openPage();
     }
 }

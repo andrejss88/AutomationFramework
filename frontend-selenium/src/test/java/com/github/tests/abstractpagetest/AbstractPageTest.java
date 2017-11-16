@@ -19,9 +19,9 @@ import static com.github.utils.ExtentUtil.writeToReport;
 @ContextConfiguration(classes = SpringConfig.class)
 public abstract class AbstractPageTest extends AbstractTestNGSpringContextTests {
 
-    protected ExtentReports extent;
-    protected String testCaseName;
-    protected String testCaseDesc;
+    private ExtentReports extent;
+    private String testCaseName;
+    private String testCaseDesc;
 
     public ExtentTest test;
 
@@ -29,9 +29,11 @@ public abstract class AbstractPageTest extends AbstractTestNGSpringContextTests 
     private WebDriver driver;
 
     @BeforeMethod
-    public void globalSetUp() {
+    public void globalSetUp(Method method) {
+        setTestCaseInfo(method);
         // Driver initialized along with Spring container in SpringConfig.class
         extent = ExtentReportManager.getReporter();
+        test = extent.startTest(testCaseName, testCaseDesc);
     }
 
     @AfterMethod
@@ -49,7 +51,7 @@ public abstract class AbstractPageTest extends AbstractTestNGSpringContextTests 
         extent.close();
     }
 
-    protected void setTestCaseInfo(Method method) {
+    private void setTestCaseInfo(Method method) {
         Test annotation = method.getAnnotation(Test.class);
 
         String testNgTestName = annotation.testName();
