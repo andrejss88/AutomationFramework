@@ -4,8 +4,8 @@ import apache.tests.AbstractTest;
 import com.github.factories.ClientFactory;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.testng.Assert;
@@ -29,8 +29,8 @@ public class BasicAuthenticationTest extends AbstractTest {
 
         CloseableHttpClient client = ClientFactory.getClientWithCredentials("dummyUser", "dummyPas");
 
-        HttpResponse response = client.execute(new HttpGet(SECURED_URL));
-        int statusCode = response.getStatusLine().getStatusCode();
+        CloseableHttpResponse response = client.execute(new HttpGet(SECURED_URL));
+        int statusCode = rob.getStatusCode(response);
 
         Assert.assertEquals(statusCode, EXPECTED_STATUS);
 
@@ -46,9 +46,9 @@ public class BasicAuthenticationTest extends AbstractTest {
         String authHeader = "Basic " + new String(encodedAuth);
         request.setHeader("Authorization", authHeader);
 
-        HttpResponse response = client.execute(request);
+        CloseableHttpResponse response = client.execute(request);
 
-        int statusCode = response.getStatusLine().getStatusCode();
+        int statusCode = rob.getStatusCode(response);
 
         Assert.assertEquals(statusCode, EXPECTED_STATUS);
 
@@ -61,9 +61,9 @@ public class BasicAuthenticationTest extends AbstractTest {
         HttpGet request = new HttpGet(SECURED_URL);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encoding);
 
-        HttpResponse response = client.execute(request);
+        CloseableHttpResponse response = client.execute(request);
 
-        int statusCode = response.getStatusLine().getStatusCode();
+        int statusCode = rob.getStatusCode(response);
 
         Assert.assertEquals(statusCode, EXPECTED_STATUS);
     }

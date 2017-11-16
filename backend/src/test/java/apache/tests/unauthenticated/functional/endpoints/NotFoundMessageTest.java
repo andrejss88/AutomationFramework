@@ -9,9 +9,8 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 
-public class NotFoundMessageTest extends AbstractTest{
+public class NotFoundMessageTest extends AbstractTest {
 
     @Test
     public void notFoundMessageIsCorrect() throws IOException{
@@ -19,7 +18,7 @@ public class NotFoundMessageTest extends AbstractTest{
         HttpGet httpget = new HttpGet(BASE_API_URL  + "nonExistentEndpoint");
         response = client.execute(httpget);
 
-        NotFoundMessage resource = retrieveResourceFromResponse(response, NotFoundMessage.class);
+        NotFoundMessage resource = rob.retrieveResourceFromResponse(response, NotFoundMessage.class);
 
         Assert.assertEquals(resource.getMessage(), "Not Found");
         Assert.assertEquals(resource.getDocumentationUrl(), "https://developer.github.com/v3");

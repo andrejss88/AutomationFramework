@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 
 import static com.github.Constants.BASE_API_URL_NO_PROTOCOL;
-import static com.github.utils.HeaderUtils.executeAndGetResponse;
+import static com.github.handlers.impl.AbstractResponseHandler.executeAndGetResponse;
 
 public class HttpHelper {
 

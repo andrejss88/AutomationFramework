@@ -25,7 +25,7 @@ public class Get301 extends AbstractTest {
         CloseableHttpClient client = getClient();
         CloseableHttpResponse response = client.execute(new HttpGet(OLD_URL));
 
-        int actualStatus = response.getStatusLine().getStatusCode();
+        int actualStatus = rob.getStatusCode(response);
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
     }

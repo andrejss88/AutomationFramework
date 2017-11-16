@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.HeaderUtils.getValueForHeader;
 
 public class OptionsMethodTest extends AbstractTest{
 
@@ -25,14 +24,14 @@ public class OptionsMethodTest extends AbstractTest{
     @Test(description = "No exception thrown considered a successful test")
     public void pubicKeyPinsAreUsed() {
 
-        getValueForHeader(response,header);
+        rob.getValueForHeader(response,header);
     }
 
     @Test
     public void sha256IsUsedInKeyPins() {
 
         String expectedHeaderValue = "pin-sha256";
-        String headerValue = getValueForHeader(response, header);
+        String headerValue = rob.getValueForHeader(response, header);
 
         boolean valueIsPresent = StringUtils.containsIgnoreCase(headerValue, expectedHeaderValue);
 

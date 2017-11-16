@@ -23,7 +23,7 @@ public class Get415 extends AbstractTest {
         httpget.setHeader(HttpHeaders.CONTENT_TYPE, "application/xml");
 
         response = client.execute(httpget);
-        int actualStatus = response.getStatusLine().getStatusCode();
+        int actualStatus = rob.getStatusCode(response);
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
 

@@ -2,7 +2,6 @@ package apache.tests.unauthenticated.functional.endpoints;
 
 import apache.tests.AbstractTest;
 import com.github.entities.manuallycreated.RateLimit;
-import com.github.utils.ResponseUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -14,8 +13,6 @@ import java.io.IOException;
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
 import static com.github.factories.ClientFactory.getDefaultClient;
-import static com.github.utils.HeaderUtils.getValueForHeader;
-import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 
 /**
  * Tests rate limits (a.k.a. how many calls you can make before getting temporarily banned :)
@@ -36,7 +33,7 @@ public class RateLimitsTest extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         response = client.execute(httpget);
 
-        String actualHeaderValue = getValueForHeader(response, LIMIT);
+        String actualHeaderValue = rob.getValueForHeader(response, LIMIT);
 
         System.out.println(actualHeaderValue);
 
@@ -52,17 +49,17 @@ public class RateLimitsTest extends AbstractTest {
         // Send 1st GET
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         CloseableHttpResponse response = client.execute(httpget);
-        String hitsRemaining = getValueForHeader(response, LIMIT_REMAINING);
+        String hitsRemaining = rob.getValueForHeader(response, LIMIT_REMAINING);
 
         // Send 2nd GET
         HttpGet httpget2 = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         CloseableHttpResponse response2 = client.execute(httpget2);
-        String hitsRemaining2 = getValueForHeader(response2, LIMIT_REMAINING);
+        String hitsRemaining2 = rob.getValueForHeader(response2, LIMIT_REMAINING);
 
         Assert.assertEquals(hitsRemaining, hitsRemaining2);
 
-        ResponseUtils.closeResponse(response);
-        ResponseUtils.closeResponse(response2);
+        rob.closeResponse(response);
+        rob.closeResponse(response2);
         client.close();
     }
 
@@ -72,7 +69,7 @@ public class RateLimitsTest extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + RATE_LIMIT);
         response = client.execute(httpget);
 
-        RateLimit resource = retrieveResourceFromResponse(response, RateLimit.class);
+        RateLimit resource = rob.retrieveResourceFromResponse(response, RateLimit.class);
 
         String actualCoreLimit = resource.getCoreLimit();
         String actualSearchLimit = resource.getSearchLimit();
@@ -87,7 +84,7 @@ public class RateLimitsTest extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + "search/repositories?q=");
         response = client.execute(httpget);
 
-        String actualHeaderValue = getValueForHeader(response, LIMIT);
+        String actualHeaderValue = rob.getValueForHeader(response, LIMIT);
 
         Assert.assertEquals(SEARCH_LIMIT_VALUE, actualHeaderValue);
     }

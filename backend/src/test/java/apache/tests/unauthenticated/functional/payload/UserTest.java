@@ -14,7 +14,6 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 import static com.github.utils.HttpHelper.valueIsPresent;
-import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 
 public class UserTest extends AbstractTest{
 
@@ -29,7 +28,7 @@ public class UserTest extends AbstractTest{
         HttpGet httpget = new HttpGet(USER_URL);
         response = client.execute(httpget);
 
-        testUser = retrieveResourceFromResponse(response, User.class);
+        testUser = rob.retrieveResourceFromResponse(response, User.class);
     }
 
     @Test

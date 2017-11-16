@@ -32,7 +32,7 @@ public class Get422 extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + "search/repositories?q=" + URLEncoder.encode(invalidInput,"UTF-8"));
         response = client.execute(httpget);
 
-        int actualStatus = response.getStatusLine().getStatusCode();
+        int actualStatus = rob.getStatusCode(response);
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
     }

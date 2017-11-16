@@ -1,6 +1,7 @@
 package apache.tests;
 
-import com.github.utils.ResponseUtils;
+import com.github.handlers.ResponseHandler;
+import com.github.handlers.impl.DefaultResponseHandler;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.testng.annotations.AfterClass;
@@ -16,14 +17,18 @@ public class AbstractTest {
 
     protected CloseableHttpResponse response;
 
+    protected ResponseHandler rob;
+
     @BeforeClass
     public void before() {
         client = getDefaultClient();
+
+        rob = new DefaultResponseHandler();
     }
 
     @AfterClass
     public void after() throws IllegalStateException, IOException {
-        ResponseUtils.closeResponse(response);
+        rob.closeResponse(response);
         client.close();
     }
 }

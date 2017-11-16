@@ -1,5 +1,7 @@
 package apache.tests.unauthenticated.functional.endpoints;
 
+import com.github.handlers.ResponseHandler;
+import com.github.handlers.impl.DefaultResponseHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,11 +15,12 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.HeaderUtils.getValueForHeader;
 
 public class GraphQlTest {
 
     private CloseableHttpResponse response;
+
+    private ResponseHandler rob;
 
 
     @BeforeClass
@@ -27,12 +30,14 @@ public class GraphQlTest {
 
         HttpGet httpget = new HttpGet(BASE_API_URL  + "graphql");
         response = client.execute(httpget);
+
+        rob = new DefaultResponseHandler();
     }
 
     @Test
     public void endpointReturns401(){
 
-        int actualStatus = response.getStatusLine().getStatusCode();
+        int actualStatus = rob.getStatusCode(response);
 
         Assert.assertEquals(actualStatus, HttpStatus.SC_UNAUTHORIZED);
     }
@@ -43,7 +48,7 @@ public class GraphQlTest {
         String header = "X-GitHub-Media-Type";
 
         String expectedHeaderValue = "github.v4";
-        String actualHeaderValue = getValueForHeader(response, header);
+        String actualHeaderValue = rob.getValueForHeader(response, header);
 
         boolean headerIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
 
@@ -52,14 +57,14 @@ public class GraphQlTest {
 
     @Test
     public void xRateLimitIsZero(){
-        String actualHeaderValue = getValueForHeader(response, "X-RateLimit-Limit");
+        String actualHeaderValue = rob.getValueForHeader(response, "X-RateLimit-Limit");
 
-        Assert.assertEquals("0", actualHeaderValue);
+        Assert.assertEquals(actualHeaderValue, "0");
     }
 
     @Test
     public void xRateLimitRemainingIsZero(){
-        String actualHeaderValue = getValueForHeader(response, "X-RateLimit-Remaining");
+        String actualHeaderValue = rob.getValueForHeader(response, "X-RateLimit-Remaining");
 
         Assert.assertEquals("0", actualHeaderValue);
     }

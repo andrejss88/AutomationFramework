@@ -23,7 +23,7 @@ public class Get414 extends AbstractStatusCodeTest{
         HttpGet httpget = new HttpGet(BASE_API_URL  + "users/" + uri);
         response = client.execute(httpget);
 
-        int actualStatus = response.getStatusLine().getStatusCode();
+        int actualStatus = rob.getStatusCode(response);
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
     }

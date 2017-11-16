@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 
 public class RepoTest extends AbstractTest {
 
@@ -29,7 +28,7 @@ public class RepoTest extends AbstractTest {
         HttpGet httpget = new HttpGet(URL);
         response = client.execute(httpget);
 
-        testRepo = retrieveResourceFromResponse(response, Repo.class);
+        testRepo = rob.retrieveResourceFromResponse(response, Repo.class);
     }
 
     @Test

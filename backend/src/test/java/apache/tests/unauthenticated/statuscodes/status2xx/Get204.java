@@ -1,6 +1,7 @@
 package apache.tests.unauthenticated.statuscodes.status2xx;
 
-import com.github.utils.ResponseUtils;
+import com.github.handlers.ResponseHandler;
+import com.github.handlers.impl.DefaultResponseHandler;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,7 +16,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.HeaderUtils.getValueForHeader;
 
 public class Get204 {
 
@@ -23,6 +23,7 @@ public class Get204 {
 
     private CloseableHttpClient client;
     private CloseableHttpResponse response;
+    private ResponseHandler rob;
 
     @BeforeClass
     public void sendAndGetResponse() throws IOException{
@@ -31,12 +32,13 @@ public class Get204 {
 
         HttpOptions httpOptions = new HttpOptions(BASE_API_URL);
         response = client.execute(httpOptions);
+        rob = new DefaultResponseHandler();
     }
 
     @Test
     public void optionsReturns204() throws IOException{
 
-        int actualStatus = response.getStatusLine().getStatusCode();
+        int actualStatus = rob.getStatusCode(response);
 
         Assert.assertEquals(actualStatus, EXPECTED_STATUS);
     }
@@ -46,7 +48,7 @@ public class Get204 {
 
         String header = HttpHeaders.CONTENT_TYPE;
         String expectedContentType = "application/octet-stream";
-        String actualContentType = getValueForHeader(response, header);
+        String actualContentType = rob.getValueForHeader(response, header);
 
         Assert.assertEquals(actualContentType, expectedContentType);
     }
@@ -56,14 +58,14 @@ public class Get204 {
         String header = "Access-Control-Allow-Methods";
         String expectedContentType = "GET, POST, PATCH, PUT, DELETE";
 
-        String actualContentType = getValueForHeader(response, header);
+        String actualContentType = rob.getValueForHeader(response, header);
 
         Assert.assertEquals(actualContentType, expectedContentType);
     }
 
     @AfterClass
     public void after() throws IllegalStateException, IOException {
-        ResponseUtils.closeResponse(response);
+        rob.closeResponse(response);
         client.close();
     }
 

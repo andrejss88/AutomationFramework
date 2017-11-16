@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.MappingUtils.validateSchema;
 
 public class SchemaTests extends AbstractTest {
 
@@ -21,7 +20,7 @@ public class SchemaTests extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + "users/andrejss88");
         response = client.execute(httpget);
 
-        validateSchema(response, User.class);
+        rob.validateSchema(response, User.class);
 
     }
 
@@ -31,6 +30,6 @@ public class SchemaTests extends AbstractTest {
         HttpGet httpget = new HttpGet(BASE_API_URL  + "repos/andrejss88/AutomationFramework");
         response = client.execute(httpget);
 
-        validateSchema(response, Repo.class);
+        rob.validateSchema(response, Repo.class);
     }
 }

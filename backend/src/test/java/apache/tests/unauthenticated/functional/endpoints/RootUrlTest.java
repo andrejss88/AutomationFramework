@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.MappingUtils.retrieveResourceFromResponse;
 
 public class RootUrlTest extends AbstractTest {
 
@@ -20,7 +19,7 @@ public class RootUrlTest extends AbstractTest {
     public void getResponse() throws IOException{
         HttpGet httpget = new HttpGet(BASE_API_URL);
         response = client.execute(httpget);
-        resource = retrieveResourceFromResponse(response, RootUrl.class);
+        resource = rob.retrieveResourceFromResponse(response, RootUrl.class);
     }
 
     @Test

@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.utils.HeaderUtils.getValueForHeader;
 import static java.lang.Integer.parseInt;
 
 public class SecurityRateLimitsTest extends AbstractTest {
@@ -22,12 +21,12 @@ public class SecurityRateLimitsTest extends AbstractTest {
         // Send 1st GET
         HttpGet httpget = new HttpGet(BASE_API_URL  + SEARCH);
         response = client.execute(httpget);
-        String hitsRemaining = getValueForHeader(response, LIMIT_REMAINING);
+        String hitsRemaining = rob.getValueForHeader(response, LIMIT_REMAINING);
 
         // Send 2nd GET
         HttpGet httpget2 = new HttpGet(BASE_API_URL  + SEARCH);
         response = client.execute(httpget2);
-        String hitsRemaining2 = getValueForHeader(response, LIMIT_REMAINING);
+        String hitsRemaining2 = rob.getValueForHeader(response, LIMIT_REMAINING);
 
         int diff = parseInt(hitsRemaining) - parseInt(hitsRemaining2); // should be at least 1
 
