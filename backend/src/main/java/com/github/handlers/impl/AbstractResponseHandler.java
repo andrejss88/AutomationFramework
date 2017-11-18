@@ -5,15 +5,10 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.testng.TestException;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -68,7 +63,7 @@ public abstract class AbstractResponseHandler implements ResponseHandler {
         }
     }
 
-    static String getJson(HttpResponse response) {
+    protected static String getJson(HttpResponse response) {
         Objects.requireNonNull(response); // Fail fast
         String jsonFromResponse = null;
 
@@ -80,17 +75,4 @@ public abstract class AbstractResponseHandler implements ResponseHandler {
         return jsonFromResponse;
     }
 
-    public static HttpResponse executeAndGetResponse(URI uri) throws IOException {
-
-        HttpGet httpGet = new HttpGet(uri);
-        CloseableHttpClient client = HttpClientBuilder.create().build();
-        HttpResponse response = client.execute(httpGet);
-
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode != 200) {
-            String reason = response.getStatusLine().getReasonPhrase();
-            throw new TestException(String.format("Expected Status 200, but got: '%d' with reason: %s ", statusCode, reason));
-        }
-        return Objects.requireNonNull(response);
-    }
 }

@@ -5,7 +5,6 @@ import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
-import java.util.Map;
 
 import static com.github.factories.ClientFactory.getDefaultClient;
 
@@ -14,27 +13,18 @@ public class DefaultRequestHandler implements RequestHandler {
     protected CloseableHttpClient client = getDefaultClient();
 
     @Override
-    public RequestBuilder sendCustomRequest(String method) throws IOException {
+    public RequestBuilder buildCustomRequest(String method) throws IOException {
         return RequestBuilder.create(method);
+    }
+
+    @Override
+    public CloseableHttpResponse send(HttpUriRequest request) throws IOException {
+        return client.execute(request);
     }
 
     @Override
     public CloseableHttpResponse sendGet(String url) throws IOException {
         HttpGet httpget = new HttpGet(url);
-        return client.execute(httpget);
-    }
-
-    @Override
-    public CloseableHttpResponse sendGetWithHeaders(String url, Map<String, String> headers) throws IOException {
-
-        HttpGet httpget = new HttpGet(url);
-
-        for (Map.Entry<String, String> entry : headers.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            httpget.setHeader(key, value);
-        }
-
         return client.execute(httpget);
     }
 

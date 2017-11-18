@@ -1,18 +1,23 @@
 package com.github.handlers;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 
 import java.io.IOException;
-import java.util.Map;
 
 public interface RequestHandler {
 
-    RequestBuilder sendCustomRequest(String method) throws  IOException;
+    RequestBuilder buildCustomRequest(String method) throws  IOException;
+
+    /**
+     * Use after having built a custom request
+     * @param request: a request built with 'buildCustomRequest'
+     * @return: response
+     */
+    CloseableHttpResponse send(HttpUriRequest request) throws  IOException;
 
     CloseableHttpResponse sendGet(String url) throws IOException;
-
-    CloseableHttpResponse sendGetWithHeaders(String url, Map<String, String> headers) throws IOException;
 
     CloseableHttpResponse sendHead(String url) throws IOException;
 

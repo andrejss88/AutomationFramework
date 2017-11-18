@@ -1,11 +1,15 @@
 package com.github.utils;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.testng.TestException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +17,6 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 
 import static com.github.Constants.BASE_API_URL_NO_PROTOCOL;
-import static com.github.handlers.impl.AbstractResponseHandler.executeAndGetResponse;
 
 public class HttpHelper {
 
@@ -58,5 +61,19 @@ public class HttpHelper {
             }
         }
         return false;
+    }
+
+    private static HttpResponse executeAndGetResponse(URI uri) throws IOException {
+
+        HttpGet httpGet = new HttpGet(uri);
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpResponse response = client.execute(httpGet);
+
+        int statusCode = response.getStatusLine().getStatusCode();
+        if (statusCode != 200) {
+            String reason = response.getStatusLine().getReasonPhrase();
+            throw new TestException(String.format("Expected Status 200, but got: '%d' with reason: %s ", statusCode, reason));
+        }
+        return Objects.requireNonNull(response);
     }
 }
