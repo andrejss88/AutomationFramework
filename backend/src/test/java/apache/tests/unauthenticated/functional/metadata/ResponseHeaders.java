@@ -10,7 +10,10 @@ import java.io.IOException;
 import static com.github.Constants.BASE_API_URL;
 import static org.testng.Assert.*;
 
-public class HeadersTest extends AbstractTest {
+/**
+ * Tests Headers and their values that are sent with API response
+ */
+public class ResponseHeaders extends AbstractTest {
 
     private static final String VALID_ENDPOINT = "users/andrejss88";
     private static final String URL = BASE_API_URL  + VALID_ENDPOINT;
