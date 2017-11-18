@@ -10,6 +10,11 @@ import java.io.IOException;
 import static com.github.Constants.BASE_API_URL;
 import static org.testng.Assert.assertTrue;
 
+/**
+ * PKPs tell a web client to associate a specific cryptographic public key with a certain web server
+ * They are delivered via Headers and help prevent Man-In-The-Middle attack
+ * More info @ https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning
+ */
 public class OptionsMethodTest extends AbstractTest {
 
     private String header = "Public-Key-Pins";

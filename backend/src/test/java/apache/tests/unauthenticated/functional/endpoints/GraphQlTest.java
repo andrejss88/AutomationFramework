@@ -1,37 +1,23 @@
 package apache.tests.unauthenticated.functional.endpoints;
 
-import com.github.handlers.ResponseHandler;
-import com.github.handlers.impl.DefaultResponseHandler;
+import apache.tests.AbstractTest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
-public class GraphQlTest {
-
-    private CloseableHttpResponse response;
-
-    private ResponseHandler rob;
-
+public class GraphQlTest extends AbstractTest {
 
     @BeforeClass
     public void sendAndGetResponse() throws IOException {
 
-        CloseableHttpClient client = HttpClientBuilder.create().build();
-
-        HttpGet httpget = new HttpGet(BASE_API_URL  + "graphql");
-        response = client.execute(httpget);
-
-        rob = new DefaultResponseHandler();
+        response = clive.sendGet(BASE_API_URL  + "graphql");
     }
 
     @Test
@@ -39,7 +25,7 @@ public class GraphQlTest {
 
         int actualStatus = rob.getStatusCode(response);
 
-        Assert.assertEquals(actualStatus, HttpStatus.SC_UNAUTHORIZED);
+       assertEquals(actualStatus, HttpStatus.SC_UNAUTHORIZED);
     }
 
     @Test
@@ -50,23 +36,23 @@ public class GraphQlTest {
         String expectedHeaderValue = "github.v4";
         String actualHeaderValue = rob.getHeaderValue(response, header);
 
-        boolean headerIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
+        boolean headerValueIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
 
-        Assert.assertTrue(headerIsPresent);
+       assertTrue(headerValueIsPresent);
     }
 
     @Test
     public void xRateLimitIsZero(){
         String actualHeaderValue = rob.getHeaderValue(response, "X-RateLimit-Limit");
 
-        Assert.assertEquals(actualHeaderValue, "0");
+       assertEquals(actualHeaderValue, "0");
     }
 
     @Test
     public void xRateLimitRemainingIsZero(){
         String actualHeaderValue = rob.getHeaderValue(response, "X-RateLimit-Remaining");
 
-        Assert.assertEquals("0", actualHeaderValue);
+       assertEquals("0", actualHeaderValue);
     }
 
 }

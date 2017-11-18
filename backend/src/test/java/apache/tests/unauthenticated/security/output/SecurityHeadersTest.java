@@ -10,6 +10,7 @@ import java.io.IOException;
 import static com.github.Constants.BASE_API_URL;
 import static com.github.Constants.RATE_LIMIT;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class SecurityHeadersTest extends AbstractTest {
@@ -33,7 +34,8 @@ public class SecurityHeadersTest extends AbstractTest {
 
     }
 
-    @Test
+    @Test(description = "Disallow rendering a page in a <frame>, <iframe> or <object>." +
+                        "Protects against clickjacking attacks.")
     public void xFrameOptionsIsDenied(){
 
         String xssHeader = "X-Frame-Options";
@@ -55,15 +57,18 @@ public class SecurityHeadersTest extends AbstractTest {
         assertEquals(actualHeaderValue, expectedHeaderValue);
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
+    @Test(description = "'X-Powered-By' is information about the host server" +
+                        " and may be useful for an attacker during reconnaissance")
     public void xPoweredByIsNotPresent(){
 
         String header = "X-Powered-By";
 
-        rob.getHeaderValue(response, header);
+        assertFalse(rob.headerIsPresent(response, header));
     }
 
-    @Test
+    @Test(description = "Without 'nosniff' clients (browsers) can ignore 'Content-Type' headers " +
+                        "to guess and process the data using an implicit content type."+
+                        "Getting user-created content could mean pulling in and executing malicious javascript injected by an attacker")
     public void xContentTypeOptionsIsNoSniff(){
         String header = "X-Content-Type-Options";
         String expectedHeaderValue = "nosniff";
@@ -73,15 +78,28 @@ public class SecurityHeadersTest extends AbstractTest {
         assertEquals(actualHeaderValue, expectedHeaderValue);
     }
 
-    @Test
-    public void hstsHeaderIsSet(){
+    @Test(description = "'HSTS' header prevents any communications from being sent over HTTP to the specified domain" +
+                        "see https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet")
+    public void hstsHeaderHasSubDomainsAndPreload(){
         String header = "Strict-Transport-Security";
 
         String expectedHeaderValue = "includeSubdomains; preload";
         String actualHeaderValue = rob.getHeaderValue(response, header);
 
-        boolean headerIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
+        boolean headerValueIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, expectedHeaderValue);
 
-        assertTrue(headerIsPresent);
+        assertTrue(headerValueIsPresent);
+    }
+
+    @Test
+    public void hstsHeaderMaxAgeIsOneYear() {
+        String header = "Strict-Transport-Security";
+
+        String oneYear = "max-age=31536000";
+        String actualHeaderValue = rob.getHeaderValue(response, header);
+
+        boolean headerValueIsPresent = StringUtils.containsIgnoreCase(actualHeaderValue, oneYear);
+
+        assertTrue(headerValueIsPresent);
     }
 }

@@ -27,7 +27,7 @@ public class BasicAuthenticationTest extends AbstractTest {
 
     private CloseableHttpClient client = getDefaultClient();
 
-    @Test
+    @Test(description = "Incorrect Basic Auth credentials are rejected")
     public void incorrectDetailsFail_UsingCredentialsManager() throws IOException{
 
         CloseableHttpClient client = ClientFactory.getClientWithCredentials("dummyUser", "dummyPas");
@@ -39,7 +39,7 @@ public class BasicAuthenticationTest extends AbstractTest {
 
     }
 
-    @Test(description = "same as above, but using headers instead of HttpClient builder API")
+    @Test(description = "Incorrect Basic Auth credentials are rejected - using headers instead of HttpClient builder API")
     public void incorrectDetailsFail_UsingHeaders() throws IOException {
 
         HttpGet request = new HttpGet(SECURED_URL);
@@ -57,7 +57,7 @@ public class BasicAuthenticationTest extends AbstractTest {
 
     }
 
-    @Test(description = "same as above, but using a Java 8 encoder + Enum for the header")
+    @Test(description = "Incorrect Basic Auth credentials are rejected - using a Java 8 encoder + Enum for the header")
     public void incorrectDetailsFail_UsingHeaders2() throws IOException {
 
         String encoding = getEncoder().encodeToString(("dummyUser2:randomPass2").getBytes());

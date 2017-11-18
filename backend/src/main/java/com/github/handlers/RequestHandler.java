@@ -1,11 +1,14 @@
 package com.github.handlers;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.RequestBuilder;
 
 import java.io.IOException;
 import java.util.Map;
 
 public interface RequestHandler {
+
+    RequestBuilder sendCustomRequest(String method) throws  IOException;
 
     CloseableHttpResponse sendGet(String url) throws IOException;
 

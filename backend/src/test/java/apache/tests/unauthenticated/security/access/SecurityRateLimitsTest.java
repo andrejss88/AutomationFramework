@@ -9,6 +9,9 @@ import static com.github.Constants.BASE_API_URL;
 import static java.lang.Integer.parseInt;
 import static org.testng.Assert.assertTrue;
 
+/**
+ * Rate Limits applied to unauthenticated Requests are useful against API abuse
+ */
 public class SecurityRateLimitsTest extends AbstractTest {
 
     private static final String LIMIT_REMAINING = "X-RateLimit-Remaining";

@@ -1,10 +1,7 @@
 package com.github.handlers.impl;
 
 import com.github.handlers.RequestHandler;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.client.methods.HttpOptions;
+import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
@@ -15,6 +12,11 @@ import static com.github.factories.ClientFactory.getDefaultClient;
 public class DefaultRequestHandler implements RequestHandler {
 
     protected CloseableHttpClient client = getDefaultClient();
+
+    @Override
+    public RequestBuilder sendCustomRequest(String method) throws IOException {
+        return RequestBuilder.create(method);
+    }
 
     @Override
     public CloseableHttpResponse sendGet(String url) throws IOException {

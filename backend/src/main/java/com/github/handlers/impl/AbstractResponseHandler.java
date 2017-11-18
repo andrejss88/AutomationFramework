@@ -1,6 +1,7 @@
 package com.github.handlers.impl;
 
 import com.github.handlers.ResponseHandler;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,6 +14,8 @@ import org.testng.TestException;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,6 +23,12 @@ import java.util.Objects;
  */
 
 public abstract class AbstractResponseHandler implements ResponseHandler {
+
+    @Override
+    public String getProtocolVersion(CloseableHttpResponse response){
+        return response.getStatusLine().getProtocolVersion().getProtocol();
+    }
+
     @Override
     public int getStatusCode(CloseableHttpResponse response){
         return response.getStatusLine().getStatusCode();
@@ -33,6 +42,14 @@ public abstract class AbstractResponseHandler implements ResponseHandler {
     @Override
     public String getCharSet(CloseableHttpResponse response) {
         return ContentType.getOrDefault(response.getEntity()).getCharset().toString();
+    }
+
+    @Override
+    public boolean headerIsPresent(CloseableHttpResponse response, String headerName){
+
+        List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
+        return httpHeaders.stream()
+               .anyMatch(header -> header.getName().equals(headerName));
     }
 
     @Override

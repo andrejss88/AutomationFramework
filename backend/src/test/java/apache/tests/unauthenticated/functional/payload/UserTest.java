@@ -28,7 +28,7 @@ public class UserTest extends AbstractTest{
         testUser = rob.retrieveResourceFromResponse(response, User.class);
     }
 
-    @Test
+    @Test(description = "When we search for user 'X', the value for field <login> must also be 'X'")
     public void userLoginIsCorrect(){
         
         assertEquals(testUser.getLogin(), VALID_USER);
@@ -42,9 +42,8 @@ public class UserTest extends AbstractTest{
         assertEquals(testUser.getId(), expectedUserId);
     }
 
-    @Test(description = "this is an interesting one," +
-            "we compare 'public_repos' value to number of ids found when querying for all repos of that user" +
-            "through a different endpoint")
+    @Test(description = "For field <public_repos>, its value must match the number of ids " +
+                        "found when querying for all repos of that user through a different endpoint 'users/{user}/repos' ")
     public void publicRepoCountIsCorrect(){
 
         int publicRepoCount = Integer.valueOf(testUser.getPublicRepos());

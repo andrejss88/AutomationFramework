@@ -14,8 +14,8 @@ public class BypassingTest extends AbstractTest {
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_UNAUTHORIZED;
 
-    @Test(dataProvider = "endPointsRequiringAuthorization", dataProviderClass = EndPointDataProviders.class,
-          description = "HEAD instead of GET doesn't allow to view content")
+    @Test(description = "HEAD instead of GET doesn't allow to view content",
+          dataProvider = "endPointsRequiringAuthorization", dataProviderClass = EndPointDataProviders.class)
     public void headFailsOnSecureEndpoints(String endpoint) throws IOException {
 
         response = clive.sendHead(BASE_API_URL  + endpoint);

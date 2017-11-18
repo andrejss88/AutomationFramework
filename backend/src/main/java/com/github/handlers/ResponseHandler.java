@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public interface ResponseHandler {
 
+    String getProtocolVersion(CloseableHttpResponse response);
+
     int getStatusCode(CloseableHttpResponse response);
 
     String getMimeType(CloseableHttpResponse response);
@@ -14,13 +16,16 @@ public interface ResponseHandler {
     String getCharSet(CloseableHttpResponse response);
 
     /**
-     * Find a header from the entire response entity
+     * Find a header from the entire response entity.
+     * Search is case-insensitive, see https://stackoverflow.com/questions/5258977/are-http-headers-case-sensitive
      * @param response: the response object to be parsed
      * @param headerName: the header to search for
      * @return the value of the header
      */
 
     String getHeaderValue(CloseableHttpResponse response, String headerName);
+
+    boolean headerIsPresent(CloseableHttpResponse response, String headerName);
 
     /**
      * Use default (strict) ObjectMapper (that fails if something's wrong) to verify entity schema hasn't changed

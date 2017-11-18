@@ -10,6 +10,10 @@ import java.io.IOException;
 import static com.github.Constants.BASE_API_URL;
 import static org.testng.Assert.assertEquals;
 
+/**
+ * 'Unauthorized' actually means here 'Unauthenticated'
+ * See https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses
+ */
 public class Get401 extends AbstractTest {
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_UNAUTHORIZED;

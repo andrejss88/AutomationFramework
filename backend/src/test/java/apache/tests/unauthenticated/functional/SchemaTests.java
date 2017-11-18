@@ -10,6 +10,9 @@ import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
 
+/**
+ * The schema for each defined resource must always be the same
+ */
 public class SchemaTests extends AbstractTest {
 
     @Test(description = "User POJO is incomplete, so it is expected that unmarshalling will fail",
