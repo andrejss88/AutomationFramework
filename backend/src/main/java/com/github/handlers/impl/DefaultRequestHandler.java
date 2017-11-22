@@ -78,6 +78,12 @@ public class DefaultRequestHandler implements RequestHandler {
     }
 
     @Override
+    public CloseableHttpResponse sendTrace(String url) throws IOException {
+        HttpTrace httpTrace = new HttpTrace(url);
+        return client.execute(httpTrace);
+    }
+
+    @Override
     public void close() throws IOException {
         client.close();
     }

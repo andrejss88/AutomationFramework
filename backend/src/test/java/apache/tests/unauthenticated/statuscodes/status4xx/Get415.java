@@ -1,18 +1,14 @@
 package apache.tests.unauthenticated.statuscodes.status4xx;
 
 import apache.tests.AbstractTest;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
-import static com.github.factories.ClientFactory.getDefaultClient;
+import static com.github.utils.RequestHeadersLists.unknownMediaTypeList;
 import static com.github.utils.RequestHeadersLists.xmlContentList;
 import static com.github.utils.RequestHeadersMaps.xmlContentMap;
 import static org.testng.Assert.assertEquals;
@@ -42,33 +38,13 @@ public class Get415 extends AbstractTest {
         assertEquals(actualStatus, EXPECTED_STATUS);
     }
 
-    @Test(description = "Same as above, but using a builder, still using the DefaultRequestHandler. Less than ideal.")
-    public void xmlIsUnsupported2() throws IOException {
+    @Test(description = "Send an unknown media type as accepted content type")
+    public void unknownMediaTypeUnsupported() throws IOException {
 
-        HttpUriRequest request = clive.buildCustomRequest("GET")
-                .setUri(URL)
-                .setHeader(HttpHeaders.ACCEPT, "application/xml")
-                .setHeader(HttpHeaders.CONTENT_TYPE, "application/xml")
-                .build();
+        response = clive.sendRequestWithHeaders(HttpGet.class, URL, unknownMediaTypeList);
 
-        response = clive.send(request);
         int actualStatus = rob.getStatusCode(response);
 
         assertEquals(actualStatus, EXPECTED_STATUS);
-    }
-
-    @Test(description = "Same as above, but plain Apache Http code. " +
-                        "This is the least desirable way, as it's inconsistent with the rest of the client API.")
-    public void xmlIsUnsupportedWithPlainHttpClient() throws IOException {
-        CloseableHttpClient client = getDefaultClient();
-        HttpGet httpget = new HttpGet(URL);
-
-        httpget.setHeader(HttpHeaders.ACCEPT, "application/xml");
-        httpget.setHeader(HttpHeaders.CONTENT_TYPE, "application/xml");
-
-        response = client.execute(httpget);
-        int actualStatus = rob.getStatusCode(response);
-
-        Assert.assertEquals(actualStatus, EXPECTED_STATUS);
     }
 }

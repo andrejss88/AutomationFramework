@@ -36,5 +36,7 @@ public interface RequestHandler {
 
     CloseableHttpResponse sendOptions(String url) throws IOException;
 
+    CloseableHttpResponse sendTrace(String url) throws IOException;
+
     void close() throws IOException;
 }

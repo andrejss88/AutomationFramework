@@ -14,10 +14,14 @@ import java.util.List;
 public class RequestHeadersLists {
 
     public static List<BasicHeader> xmlContentList = new ArrayList<>();
+    public static List<BasicHeader> unknownMediaTypeList = new ArrayList<>();
 
     static {
         xmlContentList.add(new BasicHeader(HttpHeaders.ACCEPT, "application/xml"));
         xmlContentList.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/xml"));
+
+        unknownMediaTypeList.add(new BasicHeader(HttpHeaders.ACCEPT, "application/mySpecialFormat"));
+        unknownMediaTypeList.add(new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/mySpecialFormat"));
     }
 
 }

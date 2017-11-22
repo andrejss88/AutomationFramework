@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static com.github.Constants.BASE_API_URL;
+import static org.testng.Assert.assertEquals;
 
 public class RequestHeaders extends AbstractTest {
 
@@ -20,6 +21,9 @@ public class RequestHeaders extends AbstractTest {
                 .build();
 
         response = clive.send(request);
+
+        int status = rob.getStatusCode(response);
+        assertEquals(status, 200);
     }
 
 }
