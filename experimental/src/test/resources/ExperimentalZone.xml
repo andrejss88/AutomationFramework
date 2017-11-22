@@ -3,13 +3,13 @@
 
 <suite name="Suite1" verbose="1" >
     <listeners>
-        <listener class-name="listeners.SimpleRetrier" />
-        <listener class-name="listeners.SmartRetryer" />
+        <listener class-name="com.github.listeners.SimpleRetrier" />
+        <listener class-name="com.github.listeners.SmartRetryer" />
     </listeners>
 
     <test name="Regression1">
         <classes>
-            <class name="ExperimentalZone" />
+            <!--<class name="ExperimentalZone" />-->
         </classes>
     </test>
 </suite>

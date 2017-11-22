@@ -1,4 +1,4 @@
-package listeners;
+package com.github.listeners;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

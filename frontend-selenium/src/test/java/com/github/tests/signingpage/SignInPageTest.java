@@ -2,7 +2,7 @@ package com.github.tests.signingpage;
 
 import com.github.dataproviders.UserDetailsProvider;
 import com.github.tests.abstractpagetest.AbstractSignInPageTest;
-import enums.Priority;
+import com.github.enums.Priority;
 import org.testng.annotations.Test;
 
 

@@ -1,13 +1,11 @@
-package com.flaky;
-
-import annotations.Flaky;
-import annotations.TestInfo;
+import com.github.annotations.Flaky;
+import com.github.annotations.TestInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 /**
- * Not Selenium: just shows how annotations and TestNG listeners work
+ * Not Selenium: just shows how com.github.annotations and TestNG com.github.listeners work
  * These could then be applied to actual Selenium tests
  */
 @TestInfo(

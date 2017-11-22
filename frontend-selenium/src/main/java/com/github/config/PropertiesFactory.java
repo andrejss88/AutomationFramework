@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import static com.github.Constants.USER_DIR;
+import static com.github.CommonConstants.USER_DIR;
 
 public class PropertiesFactory {
 

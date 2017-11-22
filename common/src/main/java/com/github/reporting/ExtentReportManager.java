@@ -1,11 +1,10 @@
-package com.github.config;
+package com.github.reporting;
 
+import com.github.CommonConstants;
 import com.relevantcodes.extentreports.DisplayOrder;
 import com.relevantcodes.extentreports.ExtentReports;
 
 import java.io.File;
-
-import static com.github.Constants.USER_DIR;
 
 public class ExtentReportManager {
 
@@ -17,12 +16,12 @@ public class ExtentReportManager {
     public static ExtentReports getReporter() {
         if (extent == null) {
 
-            String report = USER_DIR +"/test-output/STMExtentReport.html";
+            String report = CommonConstants.USER_DIR +"/test-output/STMExtentReport.html";
             extent = new ExtentReports (report, true, DisplayOrder.NEWEST_FIRST);
 
             extent.addSystemInfo("Browser", "Firefox 48");
 
-            File path = new File(USER_DIR + "\\src\\test\\resources\\reporting\\extent-config.xml");
+            File path = new File(CommonConstants.USER_DIR + "\\src\\test\\resources\\reporting\\extent-config.xml");
             extent.loadConfig(path);
         }
 

@@ -1,4 +1,4 @@
-package listeners;
+package com.github.listeners;
 
 import org.testng.IAnnotationTransformer;
 import org.testng.annotations.ITestAnnotation;

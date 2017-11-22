@@ -1,6 +1,6 @@
 package com.testngutils.listeners;
 
-import annotations.Flaky;
+import com.github.annotations.Flaky;
 import org.testng.IAnnotationTransformer;
 import org.testng.annotations.ITestAnnotation;
 

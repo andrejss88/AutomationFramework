@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
 
-public class AbstractTest {
+public abstract class AbstractTest {
 
     protected CloseableHttpResponse response;
 

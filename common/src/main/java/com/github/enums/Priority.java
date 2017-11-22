@@ -1,4 +1,4 @@
-package enums;
+package com.github.enums;
 
 public interface Priority {
 
