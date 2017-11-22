@@ -6,7 +6,7 @@ import com.github.enums.Priority;
 import org.testng.annotations.Test;
 
 
-public class SignInPageTest extends AbstractSignInPageTest {
+public class SignInPageFails extends AbstractSignInPageTest {
 
     @Test(dataProvider = "signUpData", dataProviderClass = UserDetailsProvider.class, priority = Priority.HIGH)
     public void checkSignInFails(String name, String password){

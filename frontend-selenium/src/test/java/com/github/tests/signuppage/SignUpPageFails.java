@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import javax.annotation.Resource;
 
-public class SignUpPageFailTest extends AbstractSignUpPageTest {
+public class SignUpPageFails extends AbstractSignUpPageTest {
 
     @Resource
     private CommonActions common;

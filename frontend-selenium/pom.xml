@@ -5,18 +5,19 @@
     <parent>
         <artifactId>Automation-Framework</artifactId>
         <groupId>Automation-Framework</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>FrontEnd-Selenium</artifactId>
+    <version>1.0</version>
 
     <dependencies>
 
         <dependency>
             <groupId>Automation-Framework</groupId>
             <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
 
