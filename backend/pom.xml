@@ -45,6 +45,13 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>Automation-Framework</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
