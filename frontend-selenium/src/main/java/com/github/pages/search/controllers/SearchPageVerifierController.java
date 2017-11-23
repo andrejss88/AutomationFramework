@@ -38,4 +38,11 @@ public class SearchPageVerifierController extends AbstractSearchPageController {
 
         return convertToStringList(list);
     }
+
+    /**
+     * If no element is found - method throws exception and test will be considered as failed
+     */
+    public void elementPresentWithText(String text) {
+        driver.findElement(By.xpath("//*[contains(text(), '" + text + "')]"));
+    }
 }

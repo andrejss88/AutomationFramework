@@ -3,15 +3,20 @@ package com.github.config;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
 @ComponentScan("com.github")
 public class SpringConfig {
+
+    @Resource(name = "driver")
+    protected WebDriver driver;
 
     @Bean(name = "driver")
     public WebDriver getDriver(){
@@ -35,5 +40,11 @@ public class SpringConfig {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         return driver;
 
+    }
+
+    @Bean(name = "wait")
+    public WebDriverWait getDriverWait(){
+        int waitSeconds = 5;
+        return new  WebDriverWait(driver, waitSeconds);
     }
 }

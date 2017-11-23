@@ -1,17 +1,12 @@
 package com.github.pages.common;
 
+import com.github.pages.AbstractPageController;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-
 @Component
-public class CommonActionsController {
-
-    @Resource(name= "driver")
-    protected WebDriver driver;
+public class CommonActionsController extends AbstractPageController {
 
     public CommonActionsController(){
         PageFactory.initElements(driver, this);

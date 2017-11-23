@@ -1,12 +1,9 @@
 package com.github.pages.signin.controllers;
 
-import org.openqa.selenium.WebDriver;
+import com.github.pages.AbstractPageController;
 
-import javax.annotation.Resource;
+public abstract class AbstractSignInPageController extends AbstractPageController {
 
-public class AbstractSignInPageController {
 
-    @Resource(name = "driver")
-    protected WebDriver driver;
 
 }

@@ -1,5 +1,6 @@
 package com.github.pages.signin.controllers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,12 @@ public class SignInPageVerifierController extends AbstractSignInPageController {
 
     public SignInPageVerifierController userRemainsOnSamePage(){
         Assert.assertEquals(driver.getCurrentUrl(),BASE_URL + "session");
+        return this;
+    }
+
+    public SignInPageVerifierController isOnPage(){
+        boolean isOnPage = StringUtils.containsIgnoreCase(driver.getCurrentUrl(), BASE_URL + "login");
+        Assert.assertTrue(isOnPage);
         return this;
     }
 

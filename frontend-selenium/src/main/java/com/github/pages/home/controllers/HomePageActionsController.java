@@ -1,16 +1,11 @@
 package com.github.pages.home.controllers;
 
+import com.github.pages.AbstractPageController;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.Resource;
-
 @Controller
-public class HomePageActionsController {
-
-    @Resource(name = "driver")
-    protected WebDriver driver;
+public class HomePageActionsController extends AbstractPageController {
 
     public HomePageActionsController enterUserName(String username) {
         driver.findElement(By.name("user[login]")).sendKeys(username);

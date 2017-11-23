@@ -2,16 +2,18 @@ package com.github.pages.search.controllers;
 
 import com.github.pages.search.enums.Language;
 import com.github.pages.search.enums.SortOptions;
+import com.github.pages.search.enums.SearchTab;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Controller;
 
-@Controller
-public class SearchPageActionsController extends AbstractSearchPageController{
+import java.util.List;
 
-    private static final int WAIT_SECONDS = 5;
+import static com.github.utils.XpathUtil.tabXpath;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
+@Controller
+public class SearchPageActionsController extends AbstractSearchPageController {
 
     public SearchPageActionsController enterSearchWord(String keyWord) {
         getSearchInput().sendKeys(keyWord);
@@ -24,7 +26,19 @@ public class SearchPageActionsController extends AbstractSearchPageController{
     }
 
     public SearchPageActionsController clickSearch() {
-        getSearchBtn().click();
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        wait.until(visibilityOfElementLocated(By.className("UnderlineNav-body")));
+        return this;
+    }
+
+    public SearchPageActionsController selectTab(SearchTab searchTab){
+        driver.findElement(By.xpath(tabXpath(searchTab.toString()))).click();
+        return this;
+    }
+
+    public SearchPageActionsController clickFollow(int btnPosition){
+        List<WebElement> buttons = driver.findElements(By.className("follow"));
+        buttons.get(btnPosition-1).click();
         return this;
     }
 
@@ -35,10 +49,7 @@ public class SearchPageActionsController extends AbstractSearchPageController{
         WebElement li = driver.findElement(By.xpath(languageItem));
         li.click();
 
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_SECONDS);
-
-        wait.until(ExpectedConditions
-                .visibilityOfElementLocated(By
+        wait.until(visibilityOfElementLocated(By
                         .xpath(FILTER_ITEM + " and contains(@class, 'selected')]")));
         return this;
 
@@ -47,23 +58,15 @@ public class SearchPageActionsController extends AbstractSearchPageController{
 
     public SearchPageActionsController sortBy(SortOptions option){
 
-        getSortByBtn().click();
+        driver.findElement(By.className("select-menu-button")).click();
 
         String optionText = "//span[contains(@class, 'select-menu-item-text')" +
                 "  and text()[normalize-space() = '" + option + "']]";
 
         driver.findElement(By.xpath(optionText)).click();
-
-        WebDriverWait wait = new WebDriverWait(driver, WAIT_SECONDS);
-
-        wait.until(ExpectedConditions
-                .visibilityOfElementLocated(By.className("repo-list")));
+        wait.until(visibilityOfElementLocated(By.className("repo-list")));
 
         return this;
-    }
-
-    private WebElement getSearchBtn() {
-        return driver.findElement(By.xpath("//button[@type='submit']"));
     }
 
     public WebElement getFilterList() {
@@ -74,8 +77,30 @@ public class SearchPageActionsController extends AbstractSearchPageController{
         return driver.findElement(By.className("input-block"));
     }
 
-    private WebElement getSortByBtn() {
-        return driver.findElement(By.className("select-menu-button"));
+    /**
+     * Selects the chosen repo
+     * @param repoName: repo name WITHOUT "/<language>" postfix
+     */
+    public SearchPageActionsController selectRepo(String repoName) {
+
+        driver.findElement(By.xpath("//a[contains(text(), '" + repoName + "')]")).click();
+        wait.until(visibilityOfElementLocated(By.className("author")));
+        return this;
     }
 
+    public void clickWatch() {
+        getPageHeadActions().findElement(By.linkText("Watch")).click();
+    }
+
+    public void clickStar() {
+        getPageHeadActions().findElement(By.linkText("Star")).click();
+    }
+
+    public void clickFork() {
+        getPageHeadActions().findElement(By.linkText("Fork")).click();
+    }
+
+    private WebElement getPageHeadActions(){
+        return driver.findElement(By.className("pagehead-actions"));
+    }
 }
