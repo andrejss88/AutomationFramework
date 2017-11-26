@@ -2,12 +2,17 @@ package com.github.utils;
 
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class ExtentUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExtentUtil.class);
 
     public static void writeToReport(ITestResult result, ExtentTest test){
         if(result.getStatus() == ITestResult.SUCCESS){
@@ -39,6 +44,20 @@ public class ExtentUtil {
         } else {
             return "N/A";
         }
+    }
+
+    public static void logUsedParameters(ITestResult result){
+        Object[] params = result.getParameters();
+
+        if (testHadParameters(params)) {
+            LOGGER.info(String.format(
+                    "Test ran with parameter(s): '%s'.",
+                    Arrays.toString(params)));
+        }
+    }
+
+    private static boolean testHadParameters(Object[] params) {
+        return params.length != 0;
     }
 
     private static Test getTestAnnotation(Method method){

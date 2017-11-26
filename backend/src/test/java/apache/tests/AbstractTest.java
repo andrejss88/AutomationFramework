@@ -8,17 +8,19 @@ import com.github.reporting.ExtentReportManager;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import static com.github.utils.ExtentUtil.getTestDesc;
-import static com.github.utils.ExtentUtil.getTestName;
-import static com.github.utils.ExtentUtil.writeToReport;
+import static com.github.utils.ExtentUtil.*;
 
 public abstract class AbstractTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
 
     private ExtentReports extent;
     public ExtentTest test;
@@ -41,6 +43,10 @@ public abstract class AbstractTest {
         String testCaseName = getTestName(method);
         String testCaseDesc = getTestDesc(method);
 
+        LOGGER.info(String.format(
+                "Running Test '%s'. Description: '%s'",
+                testCaseName, testCaseDesc));
+
         // Driver initialized along with Spring container in SpringConfig.class
         extent = ExtentReportManager.getReporter();
         test = extent.startTest(testCaseName, testCaseDesc);
@@ -50,6 +56,7 @@ public abstract class AbstractTest {
     public void processTestResults(ITestResult result){
 
         writeToReport(result, test);
+        logUsedParameters(result);
 
         extent.endTest(test);
         extent.flush(); // write to document
