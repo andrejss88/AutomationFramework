@@ -18,9 +18,14 @@ import static com.github.factories.ClientFactory.getDefaultClient;
 import static java.util.Base64.getEncoder;
 import static org.testng.Assert.assertEquals;
 
+/**
+ * Usual flow for Basic Auth:
+ * 1) Client -> Server (GET a resource)
+ * 2) Server -> Client (401 Unauthorized + Header "WWW-Authenticate")
+ * 3) Client -> Server (GET a resource with Header "Authorization:" Encode.base64(username + ":" + password)
+ * https://stackoverflow.com/questions/3283234/http-basic-authentication-in-java-using-httpclient
+ */
 public class BasicAuthenticationTest extends AbstractTest {
-
-    // https://stackoverflow.com/questions/3283234/http-basic-authentication-in-java-using-httpclient
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_UNAUTHORIZED; // 401
     private static final String SECURED_URL = BASE_API_URL + "authorizations";

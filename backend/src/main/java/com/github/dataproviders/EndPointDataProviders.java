@@ -14,4 +14,14 @@ public class EndPointDataProviders {
         };
     }
 
+    @DataProvider
+    public static Object[][] endPointsNotRequiringAuthorization() {
+        return new Object[][]{
+                {""}, // concatenates with base api url in the test
+                {"users/andrejss88"},
+                {"search/repositories?q=java"}
+                // etc
+        };
+    }
+
 }
