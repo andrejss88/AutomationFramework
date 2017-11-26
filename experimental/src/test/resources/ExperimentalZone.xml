@@ -9,7 +9,14 @@
 
     <test name="Regression1">
         <classes>
-            <!--<class name="ExperimentalZone" />-->
+            <class name="com.testng.retries.FlakyTests" />
+        </classes>
+    </test>
+
+    <test name="Regression2">
+        <classes>
+            <!--Uses SmartRetryer-->
+            <class name="com.testng.retries.FlakyTests2" />
         </classes>
     </test>
 </suite>

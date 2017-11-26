@@ -1,28 +1,18 @@
-import com.github.annotations.Flaky;
+package com.testng.retries;
+
 import com.github.annotations.TestInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-/**
- * Not Selenium: just shows how com.github.annotations and TestNG com.github.listeners work
- * These could then be applied to actual Selenium tests
- */
 @TestInfo(
         testType = TestInfo.TestType.FUNCTIONAL
 )
-public class FlakyTests {
+public class FlakyTests2 {
 
-    @Flaky
-    @Test
-    public void testInvocationNumberChange() {
-        System.out.println("I ran a flaky test");
-    }
-
-
+    // Using the smart retrier - it implements IAnnotationTransformer
 
     private static int count = 0;
-    @Test
+    @Test(description = "Fails the 1st + 2nd iteration, but passes on 3rd iteration")
     public void smartRetrierTest() {
         if(count <= 1){
             count++;
