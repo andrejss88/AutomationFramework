@@ -1,4 +1,4 @@
-package apache.tests.unit;
+package unit;
 
 import org.json.JSONArray;
 import org.json.JSONException;

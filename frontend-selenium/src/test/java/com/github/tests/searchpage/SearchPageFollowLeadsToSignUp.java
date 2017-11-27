@@ -15,7 +15,7 @@ public class SearchPageFollowLeadsToSignUp extends AbstractSearchPageTest {
     private SignInPage signInPage;
 
     @Test(testName = "Unauthorized Follow", description = "When not signed in user clicks follow - he is directed to Sign Up Page")
-    public void checkLanguageFilterWorks() {
+    public void unauthorizedFollowIsRedirected() {
 
         Language java = Language.JAVA;
 
