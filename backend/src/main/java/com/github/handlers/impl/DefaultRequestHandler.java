@@ -1,7 +1,9 @@
 package com.github.handlers.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.handlers.RequestHandler;
 import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
 
@@ -17,7 +19,7 @@ public class DefaultRequestHandler implements RequestHandler {
     protected CloseableHttpClient client = getDefaultClient();
 
     @Override
-    public RequestBuilder buildCustomRequest(String method) throws IOException {
+    public RequestBuilder buildCustomRequest(String method) {
         return RequestBuilder.create(method);
     }
 
@@ -27,7 +29,7 @@ public class DefaultRequestHandler implements RequestHandler {
     }
 
     @Override
-    public <T extends HttpRequestBase> CloseableHttpResponse sendRequestWithHeaders(Class<T> clazz, String url, Map<String, String> headers) throws IOException {
+    public <T extends HttpRequestBase> CloseableHttpResponse sendRequestWithHeaders(Class<T> clazz, String url, Map<String, String> headers) {
         CloseableHttpResponse response = null;
         Objects.requireNonNull(headers);
         try {
@@ -43,7 +45,7 @@ public class DefaultRequestHandler implements RequestHandler {
     }
 
 
-    public <T extends HttpRequestBase> CloseableHttpResponse sendRequestWithHeaders(Class<T> clazz, String url, List<BasicHeader> headers) throws IOException {
+    public <T extends HttpRequestBase> CloseableHttpResponse sendRequestWithHeaders(Class<T> clazz, String url, List<BasicHeader> headers) {
         CloseableHttpResponse response = null;
         Objects.requireNonNull(headers);
         try {
@@ -63,6 +65,34 @@ public class DefaultRequestHandler implements RequestHandler {
     public CloseableHttpResponse sendGet(String url) throws IOException {
         HttpGet httpget = new HttpGet(url);
         return client.execute(httpget);
+    }
+
+    @Override
+    public <T> CloseableHttpResponse sendJsonPost(String url, T clazz) throws IOException {
+
+        if (clazz instanceof String){
+            throw new IllegalArgumentException("The value passed should be a reference type Object representing an entity, not a raw json String");
+        }
+
+        return sendPost(url, clazz, "application/json");
+    }
+
+    @Override
+    public CloseableHttpResponse sendRawPost(String url, String body, String contentType) throws IOException {
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(new StringEntity(body));
+        httpPost.setHeader("Content-type",contentType);
+        return client.execute(httpPost);
+    }
+
+    @Override
+    public <T> CloseableHttpResponse sendPost(String url, T clazz, String contentType) throws IOException {
+        HttpPost httpPost = new HttpPost(url);
+        ObjectMapper mapper = new ObjectMapper();
+        httpPost.setEntity(new StringEntity(mapper.writeValueAsString(clazz)));
+
+        httpPost.setHeader("Content-type",contentType);
+        return client.execute(httpPost);
     }
 
     @Override

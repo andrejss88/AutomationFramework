@@ -32,6 +32,12 @@ public interface RequestHandler {
 
     CloseableHttpResponse sendGet(String url) throws IOException;
 
+    <T> CloseableHttpResponse sendJsonPost(String url, T clazz) throws IOException;
+
+    CloseableHttpResponse sendRawPost(String url, String body, String contentType) throws IOException;
+
+    <T> CloseableHttpResponse sendPost(String url, T clazz, String contentType) throws IOException;
+
     CloseableHttpResponse sendHead(String url) throws IOException;
 
     CloseableHttpResponse sendOptions(String url) throws IOException;
