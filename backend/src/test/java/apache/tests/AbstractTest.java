@@ -53,13 +53,22 @@ public abstract class AbstractTest {
     }
 
     @AfterMethod
-    public void processTestResults(ITestResult result){
+    public void afterMethodTearDown(ITestResult result){
 
+        // process Test Results
         writeToReport(result, test);
         logUsedParameters(result);
 
         extent.endTest(test);
         extent.flush(); // write to document
+
+
+
+        // There is a limit of concurrent connections set in default client in ClientFactory
+        // If that limit is still not enough - an alternative solution is to quietly consume the response
+        // -> https://stackoverflow.com/questions/11875015/httpclient-exception-org-apache-http-conn-connectionpooltimeoutexception-timeo
+        // EntityUtils.consumeQuietly(response.getEntity());
+
     }
 
     @AfterClass
