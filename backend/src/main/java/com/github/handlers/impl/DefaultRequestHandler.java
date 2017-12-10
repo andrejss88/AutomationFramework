@@ -96,6 +96,12 @@ public class DefaultRequestHandler implements RequestHandler {
     }
 
     @Override
+    public CloseableHttpResponse sendDelete(String url) throws IOException {
+        HttpDelete httpDelete = new HttpDelete(url);
+        return client.execute(httpDelete);
+    }
+
+    @Override
     public CloseableHttpResponse sendHead(String url) throws IOException {
         HttpHead httpHead = new HttpHead(url);
         return client.execute(httpHead);

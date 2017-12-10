@@ -62,13 +62,6 @@ public abstract class AbstractTest {
         extent.endTest(test);
         extent.flush(); // write to document
 
-
-
-        // There is a limit of concurrent connections set in default client in ClientFactory
-        // If that limit is still not enough - an alternative solution is to quietly consume the response
-        // -> https://stackoverflow.com/questions/11875015/httpclient-exception-org-apache-http-conn-connectionpooltimeoutexception-timeo
-        // EntityUtils.consumeQuietly(response.getEntity());
-
     }
 
     @AfterClass

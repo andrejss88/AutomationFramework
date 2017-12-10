@@ -38,6 +38,8 @@ public interface RequestHandler {
 
     <T> CloseableHttpResponse sendPost(String url, T clazz, String contentType) throws IOException;
 
+    CloseableHttpResponse sendDelete(String url) throws IOException;
+
     CloseableHttpResponse sendHead(String url) throws IOException;
 
     CloseableHttpResponse sendOptions(String url) throws IOException;

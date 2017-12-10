@@ -2,6 +2,7 @@ package rest;
 
 import model.Technology;
 import services.TechnologyDataService;
+import services.impl.ListTechnologyDataService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -14,7 +15,7 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 @Path("technology")
 public class TechnologyEndpoint {
 
-    private static TechnologyDataService technologyDataService = TechnologyDataService.getInstance();
+    private static TechnologyDataService technologyDataService = new ListTechnologyDataService();
     private static List<Technology> technologyList;
 
     static {
@@ -29,21 +30,16 @@ public class TechnologyEndpoint {
     }
 
     @GET
-    @Path("/{id : \\d+}")
+    @Path("/{name : \\w+}")
     @Produces(APPLICATION_JSON)
-    public Response getTechnologyById(@PathParam("id") int techId){
-        int offset = 1;
-        Technology technology;
-        try {
-           technology = technologyList.get(techId - offset);
-        } catch (IndexOutOfBoundsException e){
+    public Response getTechnologyByName(@PathParam("name") String name){
+        Technology technology = technologyDataService.getTechnology(name);
+
+        if(technology == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-
         return Response.ok(technology).build();
-
     }
-
 
     @POST
     @Consumes(APPLICATION_JSON)
@@ -53,5 +49,11 @@ public class TechnologyEndpoint {
         return Response.status(Response.Status.CREATED)
                 .entity("Creation successful")
                 .build();
+    }
+
+    @DELETE
+    @Path("/{name : \\w+}")
+    public Response deleteTechnologyById(@PathParam("name") String name){
+        return technologyDataService.deleteTechnology(name);
     }
 }
