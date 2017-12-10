@@ -1,12 +1,10 @@
 package localhost;
 
-import localhost.entities.Order;
+import localhost.entities.Technology;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static com.github.Constants.MEDIA_TYPE_JSON;
 import static org.testng.Assert.assertEquals;
@@ -14,12 +12,12 @@ import static org.testng.Assert.assertEquals;
 public class Post201 extends AbstractLocalHostTest {
 
     private static final int EXPECTED_STATUS = HttpStatus.SC_CREATED;
-    private static final String ENDPOINT = LOCALHOST_BASE + "orders/";
+    private static final String ENDPOINT = LOCALHOST_BASE + "technology/";
 
     @Test
     public void postRawJsonStringWorks() throws IOException {
 
-        response = clive.sendRawPost(ENDPOINT, "{\"desc\":\"Clive Mega order\",\"items\": null}", MEDIA_TYPE_JSON);
+        response = clive.sendRawPost(ENDPOINT, "{\"name\":\"New Mega tech\",\"description\": \"Will take over the world \"}", MEDIA_TYPE_JSON);
         int actualStatus = rob.getStatusCode(response);
 
         assertEquals(actualStatus, EXPECTED_STATUS);
@@ -28,9 +26,9 @@ public class Post201 extends AbstractLocalHostTest {
     @Test
     public void postAsObjectWorks() throws IOException {
 
-        Order order = new Order();
-        order.setDesc("A new order for chocolate");
-        order.setItems(new ArrayList<>(Arrays.asList("Chocolate", "More chocolate")));
+        Technology order = new Technology();
+        order.setName("Hamster");
+        order.setDescription("A general purpose programming language for all your daily needs.");
 
         response = clive.sendJsonPost(ENDPOINT, order);
         int actualStatus = rob.getStatusCode(response);
