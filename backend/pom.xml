@@ -52,8 +52,6 @@
                         <!--<exclude>**/com/github/jbehave/**</exclude>-->
                         <!--<exclude>**/com/github/tests/**</exclude>-->
                     <!--</excludes>-->
-
-
                 </configuration>
             </plugin>
 
@@ -110,7 +108,6 @@
             <version>4.1</version>
             <scope>test</scope>
         </dependency>
-
 
 
 

@@ -30,8 +30,12 @@
         </plugins>
     </build>
 
-    <dependencies>
+    <properties>
+        <spring.framework>4.3.11.RELEASE</spring.framework>
+    </properties>
 
+<!-- declare outside of dependencyManagement as we are sure we want some libs to be inherited by all modules -->
+    <dependencies>
         <!-- Testing framework: allows @Test and other annotations -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -53,41 +57,18 @@
             <version>1.7.5</version>
         </dependency>
 
+    </dependencies>
+
+    <!-- Deps under dependencyManagement must be redeclared in every pom -->
+
+    <dependencyManagement>
+      <dependencies>
+
         <!-- Library that contains convenience methods -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>19.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.11.RELEASE</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>4.3.11.RELEASE</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>4.3.11.RELEASE</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>4.3.11.RELEASE</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -96,21 +77,13 @@
             <version>2.41.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/jdepend-maven-plugin -->
-        <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>jdepend-maven-plugin</artifactId>
-            <version>2.0</version>
-        </dependency>
-
     </dependencies>
-
+    </dependencyManagement>
 
 </project>
