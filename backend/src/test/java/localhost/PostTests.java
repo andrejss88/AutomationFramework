@@ -27,5 +27,7 @@ public class PostTests extends AbstractLocalHostTest {
         postWithNameAndDesc("Hamster",
                             "A general purpose programming language for all your daily needs.");
 
+        response = clive.sendGet(ENDPOINT + "Hamster");
+        assertEquals(HttpStatus.SC_OK, rob.getStatusCode(response));
     }
 }
