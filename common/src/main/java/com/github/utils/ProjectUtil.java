@@ -54,14 +54,14 @@ public class ProjectUtil {
     private static void verifyHasDescriptions(List<Method> annotatedMethods) {
         Predicate<Method> hasDescription = method -> !method.getAnnotation(Test.class).description().isEmpty();
 
-        Set<String> mehodsWithNoDesc =  annotatedMethods.stream()
+        Set<String> methodsWithNoDesc =  annotatedMethods.stream()
                 .filter(hasDescription)
                 .map(Method::getName)
                 .collect(toSet());
 
-        Assert.assertFalse(mehodsWithNoDesc.size() > 0,
+        Assert.assertFalse(methodsWithNoDesc.size() > 0,
                 String.format("There are @Test methods without a description names in the project: %s. " +
-                        "All @Test method names should have one.", mehodsWithNoDesc));
+                        "All @Test method names should have one.", methodsWithNoDesc));
     }
 
 
