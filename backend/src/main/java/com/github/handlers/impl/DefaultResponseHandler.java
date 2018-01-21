@@ -15,7 +15,8 @@ public class DefaultResponseHandler extends AbstractResponseHandler {
 
     @Override
     public  String getHeaderValue(CloseableHttpResponse response, String headerName){
-        List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
+        Header[] headers = response.getAllHeaders();
+        List<Header> httpHeaders = Arrays.asList(headers);
         Header matchedHeader = httpHeaders.stream()
                 .filter( header -> headerName.equalsIgnoreCase(header.getName()))
                 .findFirst().orElseThrow(() -> new RuntimeException("Didn't find the header: " + headerName));
