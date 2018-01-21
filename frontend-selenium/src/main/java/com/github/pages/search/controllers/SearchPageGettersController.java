@@ -30,7 +30,9 @@ public class SearchPageGettersController extends AbstractSearchPageController {
 
     public List<Double> starRatings() {
 
-        String xpath = "//div[contains(@class, 'repo-list')]//a[contains(@class, 'muted-link')]";
+        String xpath = "//div[contains(@class, 'repo-list')]" +
+                       "/div[contains(@class,'col-2')]" +
+                       "//a[contains(@class, 'muted-link')]";
 
         List<WebElement> list = driver.findElements(By.xpath(xpath));
 

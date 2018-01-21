@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-import static com.github.utils.XpathUtil.tabXpath;
+import static com.github.utils.XpathUtil.sideNav;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 @Controller
@@ -27,12 +27,13 @@ public class SearchPageActionsController extends AbstractSearchPageController {
 
     public SearchPageActionsController clickSearch() {
         driver.findElement(By.xpath("//button[@type='submit']")).click();
-        wait.until(visibilityOfElementLocated(By.className("UnderlineNav-body")));
+        String navPane = "one-fourth";
+        wait.until(visibilityOfElementLocated(By.className(navPane)));
         return this;
     }
 
     public SearchPageActionsController selectTab(SearchTab searchTab){
-        driver.findElement(By.xpath(tabXpath(searchTab.toString()))).click();
+        driver.findElement(By.xpath(sideNav(searchTab.toString()))).click();
         return this;
     }
 
