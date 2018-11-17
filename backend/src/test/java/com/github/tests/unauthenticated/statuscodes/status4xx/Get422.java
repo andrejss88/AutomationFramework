@@ -1,7 +1,6 @@
 package com.github.tests.unauthenticated.statuscodes.status4xx;
 
 import com.github.tests.AbstractTest;
-import org.apache.http.HttpStatus;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -9,18 +8,16 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 import static com.github.Constants.BASE_API_URL;
+import static org.apache.http.HttpStatus.SC_UNPROCESSABLE_ENTITY;
 import static org.testng.Assert.assertEquals;
 
 public class Get422 extends AbstractTest {
-
-    private static final int EXPECTED_STATUS = HttpStatus.SC_UNPROCESSABLE_ENTITY;
 
     @DataProvider
     public static Object[][] unexpectedData() {
         return new Object[][]{
                 {""},
-                {" "},
-                {"&"}
+                {" "}
                 // other
         };
     }
@@ -33,6 +30,6 @@ public class Get422 extends AbstractTest {
 
         int actualStatus = rob.getStatusCode(response);
 
-        assertEquals(actualStatus, EXPECTED_STATUS);
+        assertEquals(actualStatus, SC_UNPROCESSABLE_ENTITY);
     }
 }
