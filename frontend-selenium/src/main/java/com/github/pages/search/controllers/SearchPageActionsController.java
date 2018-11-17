@@ -1,8 +1,8 @@
 package com.github.pages.search.controllers;
 
 import com.github.pages.search.enums.Language;
-import com.github.pages.search.enums.SortOptions;
 import com.github.pages.search.enums.SearchTab;
+import com.github.pages.search.enums.SortOptions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.stereotype.Controller;
@@ -27,8 +27,7 @@ public class SearchPageActionsController extends AbstractSearchPageController {
 
     public SearchPageActionsController clickSearch() {
         driver.findElement(By.xpath("//button[@type='submit']")).click();
-        String navPane = "one-fourth";
-        wait.until(visibilityOfElementLocated(By.className(navPane)));
+        wait.until(visibilityOfElementLocated(By.xpath("//nav[contains(@class, 'menu')]")));
         return this;
     }
 

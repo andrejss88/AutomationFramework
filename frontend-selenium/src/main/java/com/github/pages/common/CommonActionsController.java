@@ -13,9 +13,9 @@ public class CommonActionsController extends AbstractPageController {
     }
 
     public void fillInNewUserDetails(String username, String email, String password) {
-        driver.findElement(By.name("user[login]")).sendKeys(username);
-        driver.findElement(By.name("user[email]")).sendKeys(email);
-        driver.findElement(By.name("user[password]")).sendKeys(password);
+        driver.findElement(By.id("user_login")).sendKeys(username);
+        driver.findElement(By.id("user_email")).sendKeys(email);
+        driver.findElement(By.id("user_password")).sendKeys(password);
     }
 
 }
