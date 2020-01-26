@@ -1,32 +1,43 @@
 package com.github.statuscodes;
 
+import com.github.handlers.RequestHandler;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
+import static com.github.handlers.RequestHandlerImpl.newInstance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class Get200 {
+class Get200 {
+
+    private RequestHandler sender;
+    private static final String BASE_URL = "https://api.github.com/";
+
+    @BeforeEach
+    void setupClient() {
+        sender = newInstance();
+    }
 
     @Test
-    public void baseUrlRequestReturns200() throws IOException, InterruptedException {
+    void baseUrlRequestReturns200() {
 
-        HttpClient httpClient = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_2)
-                .build();
+        var response = sender.sendGet(BASE_URL);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("https://api.github.com/"))
-                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-                .build();
+        assertEquals(response.statusCode(), 200);
+    }
 
-        var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    @Test
+    void searchRequestReturns200() {
+
+        var response = sender.sendGet(BASE_URL + "search/repositories?q=java");
+
+        assertEquals(response.statusCode(), 200);
+    }
+
+    @Test
+    void headAllowedOnResourcesNotRequiringAuthorizations() {
+
+        var response = sender.sendHead(BASE_URL + "search/repositories?q=java");
 
         assertEquals(response.statusCode(), 200);
     }
