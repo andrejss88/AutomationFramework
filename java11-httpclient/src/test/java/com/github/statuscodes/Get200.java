@@ -42,7 +42,3 @@ class Get200 {
         assertEquals(response.statusCode(), 200);
     }
 }
-
-
-
-

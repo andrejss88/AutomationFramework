@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 
+import static java.net.http.HttpClient.*;
 import static java.net.http.HttpResponse.BodyHandlers;
 import static java.util.Objects.requireNonNull;
 
@@ -21,9 +22,9 @@ public class RequestHandlerImpl implements RequestHandler {
 
     public static RequestHandler newInstance() {
 
-        HttpClient httpClient = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .version(HttpClient.Version.HTTP_2)
+        HttpClient httpClient = newBuilder()
+                .followRedirects(Redirect.NORMAL)
+                .version(Version.HTTP_2)
                 .build();
 
         return new RequestHandlerImpl(httpClient);
@@ -47,14 +48,22 @@ public class RequestHandlerImpl implements RequestHandler {
         return handleRequest(request);
     }
 
+    @Override
+    public HttpResponse<String> sendOptions(String url) {
+        HttpRequest request = preBuildRequest(validate(url))
+                .method("OPTIONS", BodyPublishers.noBody())
+                .build();
+
+        return handleRequest(request);
+    }
+
     /**
      * Prebuild a Request with fields common to all requests
      *
      * @return a partially built Request to be completed by .build()
      */
     private HttpRequest.Builder preBuildRequest(String url) {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(url))
+        return HttpRequest.newBuilder(URI.create(url))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot");
     }
 
