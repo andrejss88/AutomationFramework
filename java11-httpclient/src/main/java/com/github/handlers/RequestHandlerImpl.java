@@ -9,15 +9,16 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 
 import static java.net.http.HttpClient.*;
-import static java.net.http.HttpResponse.BodyHandlers;
 import static java.util.Objects.requireNonNull;
 
-public class RequestHandlerImpl implements RequestHandler {
+public class RequestHandlerImpl<T> implements RequestHandler {
 
     private final HttpClient client;
+    private HttpResponse.BodyHandler<T> handler;
 
-    private RequestHandlerImpl(HttpClient client) {
+    private RequestHandlerImpl(HttpClient client, HttpResponse.BodyHandler<T> handler) {
         this.client = client;
+        this.handler = handler;
     }
 
     public static RequestHandler newInstance() {
@@ -27,11 +28,20 @@ public class RequestHandlerImpl implements RequestHandler {
                 .version(Version.HTTP_2)
                 .build();
 
-        return new RequestHandlerImpl(httpClient);
+        return new RequestHandlerImpl(httpClient, HttpResponse.BodyHandlers.ofString());
+    }
+
+    public static <T> RequestHandler newInstance(HttpResponse.BodyHandler<T> handler) {
+        HttpClient httpClient = newBuilder()
+                .followRedirects(Redirect.NORMAL)
+                .version(Version.HTTP_2)
+                .build();
+
+        return new RequestHandlerImpl(httpClient, handler);
     }
 
     @Override
-    public HttpResponse<String> sendGet(String url) {
+    public HttpResponse<T> sendGet(String url) {
         HttpRequest request = preBuildRequest(validate(url))
                 .GET()
                 .build();
@@ -40,7 +50,7 @@ public class RequestHandlerImpl implements RequestHandler {
     }
 
     @Override
-    public HttpResponse<String> sendHead(String url) {
+    public HttpResponse<T> sendHead(String url) {
         HttpRequest request = preBuildRequest(validate(url))
                 .method("HEAD", BodyPublishers.noBody())
                 .build();
@@ -49,7 +59,7 @@ public class RequestHandlerImpl implements RequestHandler {
     }
 
     @Override
-    public HttpResponse<String> sendOptions(String url) {
+    public HttpResponse<T> sendOptions(String url) {
         HttpRequest request = preBuildRequest(validate(url))
                 .method("OPTIONS", BodyPublishers.noBody())
                 .build();
@@ -67,9 +77,9 @@ public class RequestHandlerImpl implements RequestHandler {
                 .setHeader("User-Agent", "Java 11 HttpClient Bot");
     }
 
-    private HttpResponse<String> handleRequest(HttpRequest request) {
+    private HttpResponse<T> handleRequest(HttpRequest request) {
         try {
-            return client.send(request, BodyHandlers.ofString());
+            return client.send(request, handler);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         } catch (InterruptedException e) {

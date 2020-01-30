@@ -2,13 +2,13 @@ package com.github.handlers;
 
 import java.net.http.HttpResponse;
 
-public interface RequestHandler {
+public interface RequestHandler<T> {
 
-    HttpResponse<String> sendGet(String url);
+    HttpResponse<T> sendGet(String url);
 
-    HttpResponse<String> sendHead(String url);
+    HttpResponse<T> sendHead(String url);
 
-    HttpResponse<String> sendOptions(String url);
+    HttpResponse<T> sendOptions(String url);
 
 
 }
