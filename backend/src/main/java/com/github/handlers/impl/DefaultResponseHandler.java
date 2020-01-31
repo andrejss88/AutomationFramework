@@ -7,25 +7,24 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+
+import static java.util.Arrays.stream;
 
 public class DefaultResponseHandler extends AbstractResponseHandler {
 
-
     @Override
-    public  String getHeaderValue(CloseableHttpResponse response, String headerName){
+    public String getHeaderValue(CloseableHttpResponse response, String headerName) {
         Header[] headers = response.getAllHeaders();
-        List<Header> httpHeaders = Arrays.asList(headers);
-        Header matchedHeader = httpHeaders.stream()
-                .filter( header -> headerName.equalsIgnoreCase(header.getName()))
+
+        Header matchedHeader = stream(headers)
+                .filter(header -> headerName.equalsIgnoreCase(header.getName()))
                 .findFirst().orElseThrow(() -> new RuntimeException("Didn't find the header: " + headerName));
 
         return matchedHeader.getValue();
     }
 
     @Override
-    public  <T> T validateSchema(HttpResponse response, Class<T> clazz) throws IOException {
+    public <T> T validateSchema(HttpResponse response, Class<T> clazz) throws IOException {
 
         String jsonFromResponse = getJson(response);
 
