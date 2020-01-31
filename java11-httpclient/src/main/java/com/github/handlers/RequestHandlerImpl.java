@@ -21,7 +21,7 @@ public class RequestHandlerImpl<T> implements RequestHandler {
         this.handler = handler;
     }
 
-    public static RequestHandler newInstance() {
+    public static <T> RequestHandler<T> newInstance() {
 
         HttpClient httpClient = newBuilder()
                 .followRedirects(Redirect.NORMAL)
@@ -31,7 +31,7 @@ public class RequestHandlerImpl<T> implements RequestHandler {
         return new RequestHandlerImpl(httpClient, HttpResponse.BodyHandlers.ofString());
     }
 
-    public static <T> RequestHandler newInstance(HttpResponse.BodyHandler<T> handler) {
+    public static <T> RequestHandler<T> newInstance(HttpResponse.BodyHandler<T> handler) {
         HttpClient httpClient = newBuilder()
                 .followRedirects(Redirect.NORMAL)
                 .version(Version.HTTP_2)

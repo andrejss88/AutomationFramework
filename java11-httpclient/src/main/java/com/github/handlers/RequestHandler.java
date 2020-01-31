@@ -10,5 +10,4 @@ public interface RequestHandler<T> {
 
     HttpResponse<T> sendOptions(String url);
 
-
 }

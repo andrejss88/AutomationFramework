@@ -36,8 +36,8 @@ class Get401 {
         assertEquals(response.statusCode(), 401);
     }
 
+    // ca. 3 times faster than sync
     @Test
-        // ca. 3 times faster than sync
     void asyncHeadFailsOnSecureEndpoints() {
 
         HttpClient client = HttpClient.newHttpClient();
