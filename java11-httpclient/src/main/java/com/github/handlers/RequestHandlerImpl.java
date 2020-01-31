@@ -7,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 
 import static java.net.http.HttpClient.*;
 import static java.util.Objects.requireNonNull;
@@ -26,21 +27,20 @@ public class RequestHandlerImpl<T> implements RequestHandler {
     }
 
     public static <T> RequestHandler<T> newInstance() {
-
-        HttpClient httpClient = newBuilder()
-                .version(Version.HTTP_2)
-                .build();
-
-        return new RequestHandlerImpl(httpClient, HttpResponse.BodyHandlers.ofString());
+        return new RequestHandlerImpl(getDefaultClient(),
+                HttpResponse.BodyHandlers.ofString());
     }
 
     public static <T> RequestHandler<T> newInstance(HttpResponse.BodyHandler<T> handler) {
-        HttpClient httpClient = newBuilder()
+        return new RequestHandlerImpl(getDefaultClient(), handler);
+    }
+
+    private static HttpClient getDefaultClient() {
+        return newBuilder()
                 .followRedirects(Redirect.NORMAL)
                 .version(Version.HTTP_2)
+                .connectTimeout(Duration.ofSeconds(3))
                 .build();
-
-        return new RequestHandlerImpl(httpClient, handler);
     }
 
     @Override
