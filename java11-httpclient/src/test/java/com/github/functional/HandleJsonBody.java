@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 import static com.github.Constants.BASE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HandleJsonBody {
+class HandleJsonBody {
 
     @Test
     void handleJsonBody() {

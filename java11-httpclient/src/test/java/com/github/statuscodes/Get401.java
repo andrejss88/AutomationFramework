@@ -1,6 +1,6 @@
 package com.github.statuscodes;
 
-import com.github.handlers.RequestHandler;
+import com.github.AbstractTestClass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,17 +12,14 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static com.github.handlers.RequestHandlerImpl.newInstance;
+import static com.github.Constants.BASE_URL;
 import static java.net.http.HttpResponse.BodyHandlers.discarding;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class Get401 {
-
-    private RequestHandler sender = newInstance();
-    private static final String BASE_URL = "https://api.github.com/";
+class Get401 extends AbstractTestClass {
 
     @ParameterizedTest
     @ValueSource(strings = {

@@ -1,7 +1,6 @@
 package com.github.functional;
 
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,8 +10,9 @@ import static com.github.Constants.BASE_URL;
 import static java.net.http.HttpRequest.BodyPublishers;
 import static java.net.http.HttpRequest.newBuilder;
 import static java.net.http.HttpResponse.BodyHandlers;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PostingAndDeleting {
+class PostingAndDeleting {
 
     private static HttpClient client = HttpClient.newHttpClient();
     private static final String TOKEN = "generate your own token on Github> Settings > Developer Settings > Personal access tokens";
@@ -28,7 +28,7 @@ public class PostingAndDeleting {
 
         var response = client.send(request, BodyHandlers.ofString());
 
-        Assert.assertEquals(response.statusCode(), 401);
+        assertEquals(response.statusCode(), 401);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class PostingAndDeleting {
 
         var response = client.send(request, BodyHandlers.discarding());
 
-        Assert.assertEquals(response.statusCode(), 201);
+        assertEquals(response.statusCode(), 201);
     }
 
     @Test
@@ -57,6 +57,6 @@ public class PostingAndDeleting {
 
         var response = client.send(request, BodyHandlers.discarding());
 
-        Assert.assertEquals(response.statusCode(), 204);
+        assertEquals(response.statusCode(), 204);
     }
 }

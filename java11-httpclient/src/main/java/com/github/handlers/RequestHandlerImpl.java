@@ -21,10 +21,13 @@ public class RequestHandlerImpl<T> implements RequestHandler {
         this.handler = handler;
     }
 
+    public static Builder newCustomClient() {
+        return newBuilder();
+    }
+
     public static <T> RequestHandler<T> newInstance() {
 
         HttpClient httpClient = newBuilder()
-                .followRedirects(Redirect.NORMAL)
                 .version(Version.HTTP_2)
                 .build();
 

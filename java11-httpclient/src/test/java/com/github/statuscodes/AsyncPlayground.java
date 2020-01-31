@@ -15,10 +15,10 @@ import java.util.function.Function;
 import static java.net.http.HttpResponse.BodyHandlers;
 import static java.util.stream.Collectors.joining;
 
-public class AsyncPlayground {
+class AsyncPlayground {
 
     @Test
-    public void printAllDetails() {
+    void printAllDetails() {
 
         var client = HttpClient.newHttpClient();
         var request = HttpRequest.newBuilder()

@@ -1,17 +1,13 @@
 package com.github.statuscodes;
 
-import com.github.handlers.RequestHandler;
+import com.github.AbstractTestClass;
 import org.junit.jupiter.api.Test;
 
 import static com.github.Constants.BASE_URL;
-import static com.github.handlers.RequestHandlerImpl.newInstance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class Get200 {
-
-    private RequestHandler sender = newInstance();
-
+class Get200 extends AbstractTestClass {
     @Test
     void baseUrlRequestReturns200() {
 
