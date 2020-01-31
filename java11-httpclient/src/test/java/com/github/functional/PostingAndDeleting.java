@@ -12,7 +12,7 @@ import static java.net.http.HttpRequest.BodyPublishers;
 import static java.net.http.HttpRequest.newBuilder;
 import static java.net.http.HttpResponse.BodyHandlers;
 
-public class Posting {
+public class PostingAndDeleting {
 
     private static HttpClient client = HttpClient.newHttpClient();
     private static final String TOKEN = "generate your own token on Github> Settings > Developer Settings > Personal access tokens";
