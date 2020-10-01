@@ -15,6 +15,7 @@
         <module>experimental</module>
         <module>restapi</module>
         <module>java11-httpclient</module>
+        <module>restassured</module>
     </modules>
 
     <build>
