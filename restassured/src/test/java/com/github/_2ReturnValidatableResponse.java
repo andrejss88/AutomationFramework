@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class ReturnValidatableResponse {
+public class _2ReturnValidatableResponse {
 
     public static final String BASE_URL = "https://api.github.com/";
 

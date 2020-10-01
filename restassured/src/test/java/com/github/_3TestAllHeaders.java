@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class TestAllHeaders {
+public class _3TestAllHeaders {
 
     public static final String BASE_URL = "https://api.github.com/";
 
@@ -45,7 +45,7 @@ public class TestAllHeaders {
                 .contentType("application/json")
                 .contentType(Matchers.containsStringIgnoringCase("json"))
 
-                .time(Matchers.greaterThan(1L), TimeUnit.MILLISECONDS)
+                .time(Matchers.lessThan(2L), TimeUnit.SECONDS)
 
                 // custom headers
                 .header("cache-control", "public, max-age=60, s-maxage=60")

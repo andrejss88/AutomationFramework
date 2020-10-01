@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.*;
 
 
-public class ReturnBasicResponse {
+public class _1ReturnBasicResponse {
 
     public static final String BASE_URL = "https://api.github.com";
 

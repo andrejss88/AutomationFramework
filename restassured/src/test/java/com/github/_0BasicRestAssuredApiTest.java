@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
-public class BasicRestAssuredApiTest {
+public class _0BasicRestAssuredApiTest {
 
     public static final String BASE_URL = "https://api.github.com";
 
