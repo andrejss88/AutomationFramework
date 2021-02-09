@@ -18,15 +18,18 @@ public class Person {
         return account;
     }
 
-    public void setName(String name) {
+    public Person name(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setId(int id) {
+    public Person id(int id) {
         this.id = id;
+        return this;
     }
 
-    public void setAccount(Account account) {
+    public Account withAccount(Account account) {
         this.account = account;
+        return account;
     }
 }

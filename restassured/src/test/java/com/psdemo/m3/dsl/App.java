@@ -4,11 +4,12 @@ public class App {
 
     public static void main(String[] args) {
 
-        Person p = new Person();
-        p.setId(1);
-        p.setName("John");
-        p.setAccount(new Account());
+        double balance = new Person()
+                .id(1)
+                .name("John")
+                .withAccount(new Account(10))
+                .getBalance();
 
-        System.out.println(p.getName());
+        System.out.println(balance);
     }
 }
