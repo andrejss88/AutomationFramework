@@ -1,7 +1,11 @@
 Still not covered:
 
-PUT/POST/DELETE
 
-Authentication - vids 13 to 16: https://www.youtube.com/playlist?list=PLbwZ_0ncMaxhB43YQKv9SjyrfbZCOYxX3
+RestAssuredConfig -> overwrite global configs, including base URI, mapper, etc.
+    -> global config - https://groups.google.com/g/rest-assured/c/xi78ZMqlovU?pli=1
 
 + look things up in the Official Docs
+
+- Alternatives to Jackson - Quick demo with Gson
+- Serialize - Create Java Object (e.g. a Repo), convert to JSON, POST to the API
+- RestAssuredMatchers ? Where to use?

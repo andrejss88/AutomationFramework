@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -23,7 +24,11 @@ public class _2ReturnValidatableResponse {
                 // is what returns ValidatableResponse, and we can continue chaining methods
                 .then()
                 .statusCode(200)
+                .contentType("application/json; charset=utf-8")
                 .contentType(ContentType.JSON)
+                .header("x-ratelimit-limit", "60")
+//                .header("x-ratelimit-limit", 60) - doesn't compile
+                .header("x-ratelimit-limit", Integer::parseInt, Matchers.equalTo(60))
                 .body("current_user_url", equalTo(BASE_URL + "user"));
     }
 

@@ -21,6 +21,13 @@ public class _1ReturnBasicResponse {
     }
 
     @Test
+    public void print() {
+        String print = RestAssured.get(BASE_URL).print();
+        System.out.println("================");
+        System.out.println(print);
+    }
+
+    @Test
     // no or almost no diff from peek, perhaps some indentation
     // otherwise prints both headers and the body
     public void prettyPeek() {
@@ -46,13 +53,46 @@ public class _1ReturnBasicResponse {
 //    }
 
     @Test
+    public void quicktest() {
+        Response response = RestAssured.get(BASE_URL);
+
+        assertEquals(response.getStatusCode(), 200);
+        assertEquals(response.getContentType(), "application/json; charset=utf-8");
+    }
+
+    @Test
+    public void quickHeaderTest() {
+        Response response = RestAssured.get(BASE_URL);
+
+        response.getHeaders().getValue("header1");
+        response.getHeaders().asList();
+        response.getHeaders().size();
+        response.getHeaders().hasHeaderWithName("header2");
+    }
+
+    @Test
+    public void timeInTest() {
+        Response response = RestAssured.get(BASE_URL);
+
+        System.out.println(response.getTime());
+        System.out.println(response.getTimeIn(TimeUnit.MINUTES));
+
+    }
+
+    @Test
     public void andReturnThenReturn() {
         Response response = RestAssured.get(BASE_URL); // can be further chained with .andReturn(); or thenReturn()  - it is literally the same as per implementation and JavaDoc
 
+
         System.out.println("======= Headers =======");
         assertEquals(response.getStatusCode(), 200);
+        assertEquals(response.getContentType(), 200);
         assertEquals(response.getStatusLine(), "HTTP/1.1 200 OK");
         assertEquals(response.getHeader("server"), "GitHub.com");
+        assertEquals(response.getHeader("x-ratelimit-limit"), "60");
+        assertEquals(Integer.parseInt(response.getHeader("x-ratelimit-limit")), 60);
+
+
 
 
         System.out.println(response.getHeaders()); // entire list of key=vale

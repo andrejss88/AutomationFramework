@@ -19,4 +19,17 @@ public class Account {
     public double getBalance() {
         return balance;
     }
+
+    public Account withdraw(double amount) {
+        balance -= amount;
+        return this;
+    }
+
+    public void printBalance(){
+        System.out.println(balance);
+    }
+
+    public Account andThen() {
+        return this;
+    }
 }
