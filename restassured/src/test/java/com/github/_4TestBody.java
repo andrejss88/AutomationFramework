@@ -2,12 +2,8 @@ package com.github;
 
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
-
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.*;
 
@@ -22,7 +18,22 @@ public class _4TestBody {
         RestAssured.get(BASE_URL)
                 .then()
                 // must always be a Matcher
-                .body("current_user_url", equalTo(BASE_URL + "user"));
+                // path, matcher
+                .body("current_user_url", equalTo(BASE_URL + "user"))
+                // matcher
+                .body(containsString("feeds_url"))
+                // matcher, matcher
+                .body(containsString("feeds_url"), containsString("current_user_url"));
+    }
+
+    @Test
+    public void complexBodyValidation() {
+        String user = "andrejs-ps";
+        RestAssured.get(BASE_URL + "users/" + user)
+                .then()
+                .body("login", Matchers.equalTo(user))
+                // write a check that ID=7 is incremented by 1 here https://reqres.in/api/users?page=2
+                .body("url", response -> Matchers.equalTo(BASE_URL + "users/" + response.path("login")));
     }
 
     @Test

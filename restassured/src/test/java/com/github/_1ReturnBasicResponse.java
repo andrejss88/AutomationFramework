@@ -2,13 +2,15 @@ package com.github;
 
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.testng.Assert;
+import io.restassured.response.ResponseBody;
 import org.testng.annotations.Test;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 
 public class _1ReturnBasicResponse {
@@ -18,6 +20,7 @@ public class _1ReturnBasicResponse {
     @Test
     public void peek() {
         RestAssured.get(BASE_URL).peek();
+
     }
 
     @Test
@@ -32,6 +35,11 @@ public class _1ReturnBasicResponse {
     // otherwise prints both headers and the body
     public void prettyPeek() {
         RestAssured.get(BASE_URL).prettyPeek();
+    }
+
+    @Test
+    public void print() {
+        RestAssured.get(BASE_URL).print();
     }
 
 //    Example output
@@ -114,6 +122,31 @@ public class _1ReturnBasicResponse {
         System.out.println("======= Body Pretty Print =======");
         // prints just the body
         response.getBody().prettyPrint();
+    }
+
+    @Test
+    public void basicBodyTest() {
+        Response response = RestAssured.get(BASE_URL + "/rate_limit");
+        ResponseBody body = response.getBody();
+
+        System.out.println("===============");
+        System.out.println(body.asString());
+        System.out.println("===============");
+        System.out.println(body.prettyPrint());
+
+
+        JsonPath jPath = body.jsonPath();
+
+        Map<String, String> map = jPath.get(); // nested LinkedHashMap JSON representation
+        Map<String, String> subMap = jPath.get("resources");
+        Map<String, String> subMap2 = jPath.get("resources.search");
+        int limitVal = jPath.get("resources.search.limit"); // drill down and get the specific value, fails if I try to save to String
+        // try to get another string-like value, see if it automatically casts non-numbers to strings
+
+        System.out.println(map);
+        System.out.println(subMap);
+        System.out.println(subMap2);
+        System.out.println(limitVal);
     }
 }
 

@@ -30,13 +30,15 @@ public class _3TestAllHeaders {
         RestAssured.get(BASE_URL)
                 .then()
 
-                // convenience headers
+                // convenience header s
                 .statusCode(200)
                 .statusCode(equalTo(200))
                 .statusCode(Matchers.is(200))
                 .statusCode(Matchers.anything())
                 .statusCode(Matchers.greaterThan(199))
                 .statusCode(Matchers.anyOf(equalTo(200), equalTo(202)))
+                .statusCode(Matchers.lessThan(300))
+                .statusCode(Matchers.is(200))
 
                 .statusLine("HTTP/1.1 200 OK")
                 .statusLine(Matchers.notNullValue())

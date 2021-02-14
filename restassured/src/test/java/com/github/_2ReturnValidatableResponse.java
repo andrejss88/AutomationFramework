@@ -4,11 +4,8 @@ package com.github;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
-import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -30,6 +27,8 @@ public class _2ReturnValidatableResponse {
 //                .header("x-ratelimit-limit", 60) - doesn't compile
                 .header("x-ratelimit-limit", Integer::parseInt, Matchers.equalTo(60))
                 .body("current_user_url", equalTo(BASE_URL + "user"));
+
+//                .body("current_user_url", equalTo(BASE_URL + "user"));
     }
 
     @Test(description = "Using, AssertThat, and are Syntactic sugar methods - they just return 'this'." +
