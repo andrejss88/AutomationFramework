@@ -37,10 +37,6 @@ public class _1ReturnBasicResponse {
         RestAssured.get(BASE_URL).prettyPeek();
     }
 
-    @Test
-    public void print() {
-        RestAssured.get(BASE_URL).print();
-    }
 
 //    Example output
 //    ============================

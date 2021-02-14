@@ -32,8 +32,15 @@ public class _4TestBody {
         RestAssured.get(BASE_URL + "users/" + user)
                 .then()
                 .body("login", Matchers.equalTo(user))
-                // write a check that ID=7 is incremented by 1 here https://reqres.in/api/users?page=2
                 .body("url", response -> Matchers.equalTo(BASE_URL + "users/" + response.path("login")));
+    }
+
+    @Test
+    public void complexBodyExample() {
+        RestAssured.get("https://reqres.in/api/users?page=2")
+                .then()
+                // IDs are incremented by one
+                .body("data.id[0]", response -> Matchers.equalTo((int) response.body().jsonPath().get("data.id[1]") - 1));
     }
 
     @Test
