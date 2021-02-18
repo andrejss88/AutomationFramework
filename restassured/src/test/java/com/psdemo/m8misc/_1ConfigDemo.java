@@ -35,23 +35,24 @@ public class _1ConfigDemo {
     @Test
     public void maxRedirectsZeroTestFails() {
         RestAssured.config = RestAssured.config()
-                .redirect(redirectConfig().maxRedirects(0));
+                .redirect(redirectConfig().followRedirects(true).maxRedirects(0));
 
         RestAssured.get(BASE_URL + "repos/twitter/bootstrap")
                 .then()
-                .statusCode(Matchers.greaterThan(200));
+                .statusCode(Matchers.equalTo(200));
     }
 
     @Test
     public void failureConfigExample() {
-        ResponseValidationFailureListener failureListener = (reqSpec, resSpec, response) ->
-                System.out.printf("\n We have a failure, response status was %s \n and body contained: \n %s%n", response.statusCode(), response.body().asString());
+        ResponseValidationFailureListener failureListener
+                = (reqSpec, resSpec, response) ->
+                System.out.printf("\n We have a failure, response status was '%s' \n and the body contained: \n %s%n", response.statusCode(), response.body().asPrettyString());
 
-        RestAssured.config = RestAssured.config().failureConfig(FailureConfig.failureConfig().with().failureListeners(failureListener));
+        RestAssured.config = RestAssured.config().failureConfig(FailureConfig.failureConfig().failureListeners(failureListener));
 
-        RestAssured.get(BASE_URL + "non existing endpoint")
+        RestAssured.get(BASE_URL + "users/andrejs-ps")
                 .then()
-                .contentType(ContentType.JSON);
+                .body("some.path", Matchers.equalTo("a thing"));
     }
 
     @Test

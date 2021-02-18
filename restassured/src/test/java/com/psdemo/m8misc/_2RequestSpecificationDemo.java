@@ -22,11 +22,22 @@ public class _2RequestSpecificationDemo {
     }
 
     @Test
-    public void testWithRequestSpec() {
+    public void testUsingGlobalRequestSpec() {
 
         RestAssured.get()
                 .then()
                 .body("data.id[0]", is(1));
+    }
+
+    @Test
+    public void testUsingLocalRequestSpec() {
+        RestAssured
+                .given()
+                    .spec(anotherSpec())
+                .when()
+                    .get()
+                .then()
+                    .statusCode(404);
     }
 
     public static RequestSpecification getDefaultRequestSpec() {
@@ -36,6 +47,12 @@ public class _2RequestSpecificationDemo {
                 .setBaseUri("https://reqres.in/")
                 .setBasePath("api/users") // though could be part of BaseUri
                 .setConfig(getDefaultConfig()) // and get the benefit of that config (failure listener)
+                .build();
+    }
+
+    public static RequestSpecification anotherSpec() {
+        return new RequestSpecBuilder()
+                .setBaseUri("https://reqres.in/nonexistingpoint")
                 .build();
     }
 }
