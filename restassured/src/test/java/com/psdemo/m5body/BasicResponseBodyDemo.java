@@ -20,7 +20,7 @@ public class BasicResponseBodyDemo {
         Response response = RestAssured.get(BASE_URL + "rate_limit");
 
         ResponseBody<?> body = response.getBody();
-        ResponseBody body1 = response.body();
+        ResponseBody<?> body1 = response.body();
 
         JsonPath jPath = body.jsonPath();
         Map<String, String> map = jPath.get();								// nested maps

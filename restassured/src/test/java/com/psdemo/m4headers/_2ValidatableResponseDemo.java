@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.Matchers.*;
+
 public class _2ValidatableResponseDemo {
 
     public static final String BASE_URL = "https://api.github.com";
@@ -61,24 +63,25 @@ public class _2ValidatableResponseDemo {
 
                 .header("Date", date -> LocalDate.parse(date, DateTimeFormatter.RFC_1123_DATE_TIME), OrderingComparison.comparesEqualTo(LocalDate.now()))
 
-                .header("X-Ratelimit-Limit", response -> Matchers.greaterThanOrEqualTo(response.header("X-Ratelimit-Remaining")));
+                .header("X-Ratelimit-Limit", response -> greaterThan(response.header("X-Ratelimit-Remaining")));
 
     }
 
     Map<String, String> expectedHeaders = Map.of("content-encoding", "gzip",
             "access-control-allow-origin", "*");
 
-    Map<String, Matcher<?>> expectedHeadersWithMatcher = Map.of("cache-control", Matchers.containsString("public"),
-            "etag", Matchers.notNullValue());
+    Map<String, Matcher<?>> expectedHeadersWithMatcher = Map.of("cache-control", containsString("public"),
+            "etag", notNullValue());
 
     @Test
     public void usingMapsToTestHeaders() {
         RestAssured.get(BASE_URL)
                 .then()
                 // or just hard-code the map with expected key-val right into the method
-                .headers("content-encoding", "gzip",
-                        "access-control-allow-origin", "*",
-                        "cache-control", Matchers.contains("public"))
+                .headers(
+                        "content-encoding", "gzip",
+                        "access-control-allow-origin",              "*",
+                        "cache-control",                             contains("public"))
 
                 .headers(expectedHeaders)           // passes with a partial map match. enough to supply an incomplete map.
                 .headers(expectedHeadersWithMatcher);

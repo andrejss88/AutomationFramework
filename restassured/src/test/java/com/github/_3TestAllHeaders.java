@@ -3,7 +3,6 @@ package com.github;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import junit.framework.Assert;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.number.OrderingComparison;

@@ -8,6 +8,7 @@ public class App {
                 .id(1)
                 .name("John")
                 .withAccount(new Account(10))
+                .withdraw(5)
                 .getBalance();
 
         System.out.println(balance);

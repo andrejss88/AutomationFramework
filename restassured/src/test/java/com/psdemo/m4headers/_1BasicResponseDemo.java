@@ -2,13 +2,14 @@ package com.psdemo.m4headers;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class _1BasicResponseDemo {
 
@@ -35,11 +36,12 @@ public class _1BasicResponseDemo {
     @Test
     public void getHeaders() {
         Response response = RestAssured.get(BASE_URL);
-
-        String val = response.getHeaders().getValue("header1");
-        int size = response.getHeaders().size();
-        List<Header> list = response.getHeaders().asList();
-        boolean isPresent = response.getHeaders().hasHeaderWithName("header2");
+        Headers headers = response.getHeaders();
+        String val = headers.getValue("header1");
+        int size = headers.size();
+        List<Header> list = headers.asList();
+        boolean isPresent = headers.hasHeaderWithName("header2");
+        assertTrue(isPresent);
     }
 
     @Test

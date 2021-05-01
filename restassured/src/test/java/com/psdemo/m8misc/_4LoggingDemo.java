@@ -3,6 +3,7 @@ package com.psdemo.m8misc;
 import groovy.util.logging.Log;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
+import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
 public class _4LoggingDemo {
@@ -14,8 +15,8 @@ public class _4LoggingDemo {
         RestAssured
                 .given()
 //                    .log().all()
-                    // .log().headers()
-                    // .log().body()
+                     .log().headers()
+                     .log().body()
                     // more logging of Request
                 .when()
                     .get(BASE_URL)
@@ -25,7 +26,7 @@ public class _4LoggingDemo {
                     .log().status()
                 // with condition
                     .log().ifValidationFails(LogDetail.HEADERS) // doesn't have overriding power, repeats the operation
-                    .statusCode(201);
+                    .statusCode(HttpStatus.SC_OK);
 
     }
 }

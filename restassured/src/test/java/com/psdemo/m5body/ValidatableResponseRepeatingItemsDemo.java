@@ -25,6 +25,7 @@ public class ValidatableResponseRepeatingItemsDemo {
 
                 // 3) Strict check of the entire array
 //                fail, must specify all names - [George, Janet, Emma, Eve, Charles, Tracey]
+                .body("data.first_name", Matchers.contains("Eve", "Emma"))
                 .body("data.first_name", Matchers.containsInAnyOrder("Eve", "Emma"))
 
                 // 4) Loose checking

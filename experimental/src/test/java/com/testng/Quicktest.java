@@ -1,6 +1,5 @@
 package com.testng;
 
-import org.junit.Before;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
