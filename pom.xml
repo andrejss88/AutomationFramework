@@ -16,6 +16,7 @@
         <module>restapi</module>
         <module>java11-httpclient</module>
         <module>restassured</module>
+        <module>playwright</module>
     </modules>
 
     <build>
