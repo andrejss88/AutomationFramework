@@ -20,7 +20,7 @@ public class HeadAndOptionsDemo {
     }
 
     @Test
-    public void headOptions() {
+    public void optionsTest() {
         RestAssured.options(BASE_URL)
                 .then()
                 .statusCode(204)
